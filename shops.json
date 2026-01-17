@@ -1,0 +1,32 @@
+{
+    "shops": [
+        {
+            "address": "ул. Ленина, 10",
+            "id": 1,
+            "latitude": 38.556,
+            "longitude": 68.776,
+            "name": "Магазин №1",
+            "phone": "+992900000000",
+            "working_hours": "08:00-17:00"
+        },
+        {
+            "address": "Панчшанбе",
+            "id": 2,
+            "latitude": 38.556,
+            "longitude": 68.776,
+            "name": "Магазин №27",
+            "phone": "+992900000000",
+            "working_hours": "08:00-17:00"
+        },
+        {
+            "address": "Панчшанбе",
+            "id": 3,
+            "latitude": 38.556,
+            "longitude": 68.776,
+            "name": "Магазин №28",
+            "phone": "+992900000078",
+            "working_hours": "08:00-17:00"
+        }
+    ],
+    "success": true
+}
