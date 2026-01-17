@@ -1,0 +1,70 @@
+{
+    "results": [
+        {
+            "product": {
+                "category": "Товары для дома",
+                "description": "Ультразвуковой увлажнитель для квартиры",
+                "id": 22,
+                "image_filename": "5a743a37433d4761a6542a3ecc125e60.jpg",
+                "image_url": "http://192.168.10.45:5000/static/product_images/5a743a37433d4761a6542a3ecc125e60.jpg",
+                "name": "Увлажнитель воздуха AirFresh",
+                "price": 650.0,
+                "shop_id": 1
+            },
+            "similarity": 100.0
+        },
+        {
+            "product": {
+                "category": "Освещение",
+                "description": "Компактная настольная лампа с мягким тёплым светом",
+                "id": 9,
+                "image_filename": "a72891af7d3b4db0b75350f05b29f17f.jpg",
+                "image_url": "http://192.168.10.45:5000/static/product_images/a72891af7d3b4db0b75350f05b29f17f.jpg",
+                "name": "Настольная лампа Soft Light",
+                "price": 320.0,
+                "shop_id": 1
+            },
+            "similarity": 76.34
+        },
+        {
+            "product": {
+                "category": "Электроника",
+                "description": "Управление электроприборами через мобильное приложение",
+                "id": 14,
+                "image_filename": "17344c7bff714fe693e96caeef2554dd.jpg",
+                "image_url": "http://192.168.10.45:5000/static/product_images/17344c7bff714fe693e96caeef2554dd.jpg",
+                "name": "Смарт-розетка SmartPlug",
+                "price": 180.0,
+                "shop_id": 3
+            },
+            "similarity": 71.76
+        },
+        {
+            "product": {
+                "category": "Товары для дома",
+                "description": "Мощный пылесос с многоразовым фильтром",
+                "id": 20,
+                "image_filename": "20662259d41f4620ad188cf4e8c5295a.jpg",
+                "image_url": "http://192.168.10.45:5000/static/product_images/20662259d41f4620ad188cf4e8c5295a.jpg",
+                "name": "Пылесос CleanPro",
+                "price": 2300.0,
+                "shop_id": 3
+            },
+            "similarity": 67.03
+        },
+        {
+            "product": {
+                "category": "Электроника",
+                "description": "Камера видеонаблюдения с ночным режимом",
+                "id": 16,
+                "image_filename": "1a8510f6938f4cfab40f3285df640d35.jpg",
+                "image_url": "http://192.168.10.45:5000/static/product_images/1a8510f6938f4cfab40f3285df640d35.jpg",
+                "name": "Видеокамера HomeCam",
+                "price": 1250.0,
+                "shop_id": 3
+            },
+            "similarity": 66.61
+        }
+    ],
+    "success": true
+}
