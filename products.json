@@ -1,0 +1,140 @@
+{
+    "products": [
+        {
+            "category": "Товары для дома",
+            "description": "Ультразвуковой увлажнитель для квартиры",
+            "id": 22,
+            "image_url": "http://192.168.10.45:5000/static/product_images/5a743a37433d4761a6542a3ecc125e60.jpg",
+            "name": "Увлажнитель воздуха AirFresh",
+            "price": 650.0,
+            "shop_id": 1
+        },
+        {
+            "category": "Товары для дома",
+            "description": "Набор из 5 кастрюль из нержавеющей стали",
+            "id": 21,
+            "image_url": "http://192.168.10.45:5000/static/product_images/9d3de284a9a84d5ba1034f8d86484d26.jpg",
+            "name": "Набор кастрюль SteelCook",
+            "price": 1100.0,
+            "shop_id": 3
+        },
+        {
+            "category": "Товары для дома",
+            "description": "Мощный пылесос с многоразовым фильтром",
+            "id": 20,
+            "image_url": "http://192.168.10.45:5000/static/product_images/20662259d41f4620ad188cf4e8c5295a.jpg",
+            "name": "Пылесос CleanPro",
+            "price": 2300.0,
+            "shop_id": 3
+        },
+        {
+            "category": "Строительные материалы",
+            "description": "Листы для отделки помещений с повышенной влажностью",
+            "id": 19,
+            "image_url": "http://192.168.10.45:5000/static/product_images/ee6e35b8447f4e678007eed067aa4a38.jpg",
+            "name": "Гипсокартон влагостойкий",
+            "price": 75.0,
+            "shop_id": 2
+        },
+        {
+            "category": "Строительные материалы",
+            "description": "Напольная плитка под камень",
+            "id": 18,
+            "image_url": "http://192.168.10.45:5000/static/product_images/6dc492b083244eb5aec1a38d5d66768e.png",
+            "name": "Керамическая плитка Stone Grey",
+            "price": 260.0,
+            "shop_id": 2
+        },
+        {
+            "category": "Строительные материалы",
+            "description": "Высокопрочный цемент для строительных работ",
+            "id": 17,
+            "image_url": "http://192.168.10.45:5000/static/product_images/57da9d596272456a909853116bf7aabe.jpg",
+            "name": "Цемент Portland 50кг",
+            "price": 95.0,
+            "shop_id": 1
+        },
+        {
+            "category": "Электроника",
+            "description": "Камера видеонаблюдения с ночным режимом",
+            "id": 16,
+            "image_url": "http://192.168.10.45:5000/static/product_images/1a8510f6938f4cfab40f3285df640d35.jpg",
+            "name": "Видеокамера HomeCam",
+            "price": 1250.0,
+            "shop_id": 3
+        },
+        {
+            "category": "Электроника",
+            "description": "Высокоскоростной маршрутизатор для дома и офиса",
+            "id": 15,
+            "image_url": "http://192.168.10.45:5000/static/product_images/fe7cd9a27dce4fc9998bceff379436d3.jpg",
+            "name": "Wi-Fi роутер FastNet",
+            "price": 890.0,
+            "shop_id": 3
+        },
+        {
+            "category": "Электроника",
+            "description": "Управление электроприборами через мобильное приложение",
+            "id": 14,
+            "image_url": "http://192.168.10.45:5000/static/product_images/17344c7bff714fe693e96caeef2554dd.jpg",
+            "name": "Смарт-розетка SmartPlug",
+            "price": 180.0,
+            "shop_id": 3
+        },
+        {
+            "category": "Мебель",
+            "description": "Деревянный стол на 6 персон, современный дизайн",
+            "id": 13,
+            "image_url": "http://192.168.10.45:5000/static/product_images/01859f4f1da04339aba58f93ccbc91fd.png",
+            "name": "Обеденный стол WoodLine",
+            "price": 3500.0,
+            "shop_id": 2
+        },
+        {
+            "category": "Мебель",
+            "description": "Удобное кресло для отдыха и чтения",
+            "id": 12,
+            "image_url": "http://192.168.10.45:5000/static/product_images/2a96202511604066bd695f88b33169b5.jpg",
+            "name": "Кресло Relax",
+            "price": 2100.0,
+            "shop_id": 2
+        },
+        {
+            "category": "Мебель",
+            "description": "Трёхместный диван с мягкими подушками и прочной обивкой",
+            "id": 11,
+            "image_url": "http://192.168.10.45:5000/static/product_images/effa3c9a9b3f4677bcff4bdd9960b8c3.jpg",
+            "name": "Диван Comfort Plus",
+            "price": 4200.0,
+            "shop_id": 2
+        },
+        {
+            "category": "Освещение",
+            "description": "Напольный торшер с регулировкой яркости",
+            "id": 10,
+            "image_url": "http://192.168.10.45:5000/static/product_images/39dbecae7bc2489b9b17a123b32ffca6.jpeg",
+            "name": "Светодиодный торшер Modern",
+            "price": 980.0,
+            "shop_id": 1
+        },
+        {
+            "category": "Освещение",
+            "description": "Компактная настольная лампа с мягким тёплым светом",
+            "id": 9,
+            "image_url": "http://192.168.10.45:5000/static/product_images/a72891af7d3b4db0b75350f05b29f17f.jpg",
+            "name": "Настольная лампа Soft Light",
+            "price": 320.0,
+            "shop_id": 1
+        },
+        {
+            "category": "Освещение",
+            "description": "Потолочная люстра с кристальными подвесками, подходит для гостиной",
+            "id": 8,
+            "image_url": "http://192.168.10.45:5000/static/product_images/a0078d37d15046b9831438cbd2e2f705.jpg",
+            "name": "Люстра Crystal Lux",
+            "price": 1500.0,
+            "shop_id": 1
+        }
+    ],
+    "success": true
+}
