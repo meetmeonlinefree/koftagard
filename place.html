@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>KoftaGard — Место</title>
+
+  <style>
+    :root{
+      --bg: #f3fbf6;
+      --card: #ffffff;
+      --border: rgba(16, 24, 40, .10);
+      --text: #0f172a;
+      --muted: rgba(15, 23, 42, .70);
+      --muted2: rgba(15, 23, 42, .55);
+      --accent: #4CAF50;
+      --accent2:#3f9f44;
+      --shadow: 0 18px 50px rgba(2, 44, 18, .10);
+      --radius: 18px;
+    }
+    *{ box-sizing: border-box; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      background:
+        radial-gradient(900px 500px at 20% -10%, rgba(76,175,80,.18), transparent 60%),
+        radial-gradient(900px 500px at 80% 0%, rgba(76,175,80,.10), transparent 60%),
+        var(--bg);
+      color: var(--text);
+      min-height:100vh;
+    }
+    a{ color: inherit; text-decoration:none; }
+    .wrap{ max-width: 980px; margin:0 auto; padding: 20px 16px 48px; }
+
+    /* top bar */
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px; padding: 8px 0 18px;
+    }
+    .brand{ display:flex; align-items:center; gap:12px; font-weight: 800; }
+    .logo{
+      width: 42px; height: 42px; border-radius: 14px;
+      border: 1px solid rgba(15, 23, 42, .12);
+      background: #fff;
+      overflow:hidden;
+      box-shadow: 0 10px 30px rgba(76,175,80,.14);
+      display:grid; place-items:center;
+      flex: 0 0 auto;
+    }
+    .logo img{ width:100%; height:100%; object-fit:cover; display:block; }
+    .brand small{ display:block; color: var(--muted2); font-weight: 650; margin-top:2px; }
+
+    .btn{
+      display:inline-flex; align-items:center; gap:8px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.86);
+      padding: 10px 12px;
+      border-radius: 14px;
+      font-weight: 750;
+      transition: transform .08s ease, box-shadow .15s ease, border-color .15s ease;
+      user-select:none;
+      cursor:pointer;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      box-shadow: 0 10px 25px rgba(2,44,18,.08);
+      border-color: rgba(76,175,80,.35);
+    }
+    .btn.primary{
+      background: rgba(76,175,80,.12);
+      border-color: rgba(76,175,80,.45);
+    }
+
+    /* layout */
+    .grid{
+      display:grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap: 14px;
+      align-items:start;
+    }
+    @media (max-width: 900px){
+      .grid{ grid-template-columns: 1fr; }
+    }
+
+    .card{
+      border: 1px solid rgba(15, 23, 42, .12);
+      background: #fff;
+      border-radius: var(--radius);
+      overflow:hidden;
+      box-shadow: var(--shadow);
+    }
+    .content{ padding: 14px; }
+
+    .title{
+      margin: 0 0 6px;
+      font-weight: 900;
+      letter-spacing: -.2px;
+      font-size: clamp(20px, 2.5vw, 30px);
+      line-height: 1.15;
+    }
+    .meta{
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+      margin: 0 0 12px;
+    }
+    .pillrow{
+      display:flex; flex-wrap:wrap; gap:8px;
+      margin: 10px 0 12px;
+    }
+    .pill{
+      padding: 7px 10px;
+      border-radius: 999px;
+      font-size: 12.5px;
+      font-weight: 800;
+      border: 1px solid rgba(15, 23, 42, .12);
+      background: rgba(243,251,246,.9);
+    }
+    .pill.green{
+      border-color: rgba(76,175,80,.35);
+      background: rgba(76,175,80,.10);
+    }
+
+    .actions{
+      display:flex; flex-wrap:wrap; gap:8px;
+      margin-top: 10px;
+    }
+    .action{
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(15, 23, 42, .12);
+      background: rgba(243,251,246,.85);
+      font-weight: 850;
+      font-size: 13.5px;
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+    }
+    .action:hover{
+      border-color: rgba(76,175,80,.40);
+      background: rgba(76,175,80,.10);
+    }
+
+    /* gallery */
+    .gallery{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      padding: 14px;
+    }
+    .heroimg{
+      width: 100%;
+      aspect-ratio: 16/9;
+      border-radius: 16px;
+      overflow:hidden;
+      background: rgba(15, 23, 42, .04);
+      border: 1px solid rgba(15, 23, 42, .10);
+      cursor: zoom-in;
+    }
+    .heroimg img{ width:100%; height:100%; object-fit:cover; display:block; }
+    .thumbs{
+      display:grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+    }
+    @media (max-width: 520px){
+      .thumbs{ grid-template-columns: repeat(4, 1fr); }
+    }
+    .thumb{
+      aspect-ratio: 1/1;
+      border-radius: 14px;
+      overflow:hidden;
+      background: rgba(15, 23, 42, .04);
+      border: 1px solid rgba(15, 23, 42, .10);
+      cursor:pointer;
+      transition: transform .08s ease, border-color .15s ease;
+    }
+    .thumb:hover{ transform: translateY(-1px); border-color: rgba(76,175,80,.40); }
+    .thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+    /* side card */
+    .side h3{
+      margin: 0 0 10px;
+      font-size: 15px;
+      font-weight: 900;
+    }
+    .kv{
+      display:grid;
+      gap:8px;
+      color: var(--muted);
+      font-size: 13.5px;
+      line-height: 1.45;
+    }
+    .kv b{ color: var(--text); }
+    .tags{
+      display:flex; flex-wrap:wrap; gap:8px; margin-top: 10px;
+    }
+    .tag{
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(15, 23, 42, .12);
+      background: rgba(255,255,255,.9);
+      font-weight: 800;
+      font-size: 12px;
+      color: rgba(15, 23, 42, .72);
+    }
+
+    .empty{
+      border: 1px dashed rgba(15, 23, 42, .18);
+      border-radius: var(--radius);
+      padding: 16px;
+      color: var(--muted);
+      background: rgba(255,255,255,.75);
+    }
+
+    /* modal */
+    .modal{
+      position:fixed; inset:0;
+      background: rgba(2, 6, 23, .55);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 18px;
+      z-index: 50;
+    }
+    .modal.open{ display:flex; }
+    .modalbox{
+      max-width: 980px;
+      width: 100%;
+      border-radius: 18px;
+      overflow:hidden;
+      background:#fff;
+      border: 1px solid rgba(15, 23, 42, .12);
+      box-shadow: 0 18px 60px rgba(0,0,0,.25);
+    }
+    .modalimg{
+      width:100%;
+      max-height: 75vh;
+      object-fit: contain;
+      display:block;
+      background: #fff;
+    }
+    .modalbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-top: 1px solid rgba(15, 23, 42, .10);
+      color: var(--muted);
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <div class="logo" title="KoftaGard">
+          <img
+            src="https://play-lh.googleusercontent.com/hz0iJ1uOy2Qla1j20KA0fOg5yMwvuD2atqnD2OYVsHeYPmoL99J399NdZGlFgmhXcpKvlVrQd_CMQd5Yo13N=w240-h480-rw"
+            alt="KoftaGard Logo"
+            loading="lazy"
+          />
+        </div>
+        <div>
+          KoftaGard
+          <small>Справочник Худжанда</small>
+        </div>
+      </div>
+
+      <div style="display:flex; gap:10px; flex-wrap:wrap">
+        <a class="btn" href="./demo.html">← Назад</a>
+        <button class="btn primary" id="btnCopyLink" type="button">🔗 Скопировать ссылку</button>
+      </div>
+    </div>
+
+    <div id="page"></div>
+  </div>
+
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Просмотр изображения">
+    <div class="modalbox">
+      <img id="modalImg" class="modalimg" alt="Изображение" />
+      <div class="modalbar">
+        <span id="modalCaption">Фото</span>
+        <button class="btn" id="modalClose" type="button">Закрыть ✕</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const CATEGORIES_URL = "./categories.json";
+    const PLACES_URL = "./places.json";
+
+    const $ = (id) => document.getElementById(id);
+
+    function esc(s){
+      return String(s ?? "").replace(/[&<>"']/g, (m) => ({
+        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+      }[m]));
+    }
+
+    function getParam(name){
+      const url = new URL(window.location.href);
+      return url.searchParams.get(name);
+    }
+
+    function normalizePlace(p){
+      return {
+        id: String(p.id ?? crypto.randomUUID()),
+        name: p.name || "Без названия",
+        category: p.category || "",
+        city: p.city || "Khujand",
+        address: p.address || "",
+        geo: {
+          lat: Number(p.geo?.lat ?? p.lat ?? NaN),
+          lng: Number(p.geo?.lng ?? p.lng ?? NaN)
+        },
+        cover: p.cover || "",
+        images: Array.isArray(p.images) ? p.images : [],
+        contacts: {
+          phone: p.contacts?.phone || p.phone || "",
+          whatsapp: p.contacts?.whatsapp || "",
+          website: p.contacts?.website || p.website || ""
+        },
+        hours: p.hours || {},
+        tags: Array.isArray(p.tags) ? p.tags : [],
+        rating: Number.isFinite(+p.rating) ? +p.rating : null,
+        price_level: Number.isFinite(+p.price_level) ? +p.price_level : null,
+        verified: !!p.verified,
+        source: p.source || "manual",
+        updated_at: p.updated_at || ""
+      };
+    }
+
+    async function loadJSON(url){
+      const r = await fetch(url, { cache: "no-store" });
+      if(!r.ok) throw new Error(`${url} -> ${r.status}`);
+      return r.json();
+    }
+
+    function categoryTitle(categories, id){
+      return categories.find(c => c.id === id)?.title || id;
+    }
+
+    function formatHours(hours){
+      if(!hours || typeof hours !== "object") return "—";
+      const map = [
+        ["mon","Пн"],["tue","Вт"],["wed","Ср"],["thu","Чт"],["fri","Пт"],["sat","Сб"],["sun","Вс"]
+      ];
+      const lines = map.map(([k, label])=>{
+        const v = hours[k];
+        if(!v) return null;
+        return `${label}: ${v === "closed" ? "выходной" : v}`;
+      }).filter(Boolean);
+      return lines.length ? lines.join(" • ") : "—";
+    }
+
+    function mapsLink(p){
+      if(Number.isFinite(p.geo.lat) && Number.isFinite(p.geo.lng)){
+        return `https://www.google.com/maps?q=${p.geo.lat},${p.geo.lng}`;
+      }
+      return "";
+    }
+
+    function buildGallery(p){
+      const imgs = [];
+      if(p.cover) imgs.push(p.cover);
+      for(const im of (p.images || [])) if(im && !imgs.includes(im)) imgs.push(im);
+
+      const hero = imgs[0] || "";
+      const thumbs = imgs.slice(0, 10);
+
+      const heroHTML = hero
+        ? `<div class="heroimg" id="heroimg"><img src="${esc(hero)}" alt="${esc(p.name)}"></div>`
+        : `<div class="heroimg"><div style="width:100%;height:100%;display:grid;place-items:center;color:rgba(15,23,42,.55)">Нет фото</div></div>`;
+
+      const thumbsHTML = thumbs.length > 1
+        ? `<div class="thumbs">
+            ${thumbs.map((src, i)=>`
+              <div class="thumb" data-src="${esc(src)}" data-i="${i}">
+                <img src="${esc(src)}" alt="Фото ${i+1}">
+              </div>
+            `).join("")}
+          </div>`
+        : "";
+
+      return `<div class="gallery">${heroHTML}${thumbsHTML}</div>`;
+    }
+
+    function renderPlace(categories, p){
+      const cat = categoryTitle(categories, p.category);
+      const rating = (p.rating != null) ? `⭐ ${p.rating.toFixed(1)}` : "⭐ —";
+      const price = (p.price_level != null) ? "₸".repeat(Math.max(1, Math.min(4, p.price_level))) : "";
+      const hoursLine = formatHours(p.hours);
+      const mlink = mapsLink(p);
+
+      const actions = [];
+      if(p.contacts.phone) actions.push(`<a class="action" href="tel:${esc(p.contacts.phone)}">📞 Позвонить</a>`);
+      if(p.contacts.whatsapp) actions.push(`<a class="action" target="_blank" rel="noopener" href="https://wa.me/${esc(p.contacts.whatsapp.replace(/\D/g,''))}">💬 WhatsApp</a>`);
+      if(p.contacts.website) actions.push(`<a class="action" target="_blank" rel="noopener" href="${esc(p.contacts.website)}">🌐 Сайт</a>`);
+      if(mlink) actions.push(`<a class="action" target="_blank" rel="noopener" href="${esc(mlink)}">🧭 Маршрут</a>`);
+
+      const gallery = buildGallery(p);
+
+      const html = `
+        <div class="grid">
+          <div class="card">
+            ${gallery}
+            <div class="content">
+              <h1 class="title">${esc(p.name)}</h1>
+              <div class="meta">${esc(p.address || "Адрес не указан")}</div>
+
+              <div class="pillrow">
+                <span class="pill green">${esc(cat)}</span>
+                <span class="pill">${rating} ${price ? " • " + price : ""}</span>
+                <span class="pill">${esc(p.city)}</span>
+                ${p.verified ? `<span class="pill green">✅ Verified</span>` : ``}
+              </div>
+
+              <div class="actions">
+                ${actions.join("") || `<span class="empty">Контакты не указаны.</span>`}
+              </div>
+            </div>
+          </div>
+
+          <div class="card side">
+            <div class="content">
+              <h3>Информация</h3>
+              <div class="kv">
+                <div><b>Категория:</b> ${esc(cat)}</div>
+                <div><b>Город:</b> ${esc(p.city)}</div>
+                <div><b>График:</b> ${esc(hoursLine)}</div>
+                <div><b>Обновлено:</b> ${esc(p.updated_at || "—")}</div>
+              </div>
+
+              <div style="margin-top:12px">
+                <h3 style="margin:0 0 8px">Теги</h3>
+                <div class="tags">
+                  ${(p.tags && p.tags.length)
+                    ? p.tags.slice(0, 12).map(t => `<span class="tag">${esc(t)}</span>`).join("")
+                    : `<span class="tag">—</span>`
+                  }
+                </div>
+              </div>
+
+              <div style="margin-top:14px; display:grid; gap:10px">
+                ${mlink ? `<a class="btn primary" target="_blank" rel="noopener" href="${esc(mlink)}">Открыть на карте</a>` : ""}
+                <button class="btn" id="btnReport" type="button">Сообщить об ошибке</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      $("page").innerHTML = html;
+
+      // Gallery interactions
+      const heroBox = $("heroimg");
+      if(heroBox){
+        heroBox.addEventListener("click", ()=>{
+          const img = heroBox.querySelector("img");
+          if(img) openModal(img.src, p.name);
+        });
+      }
+      document.querySelectorAll(".thumb").forEach(el=>{
+        el.addEventListener("click", ()=>{
+          openModal(el.getAttribute("data-src"), p.name);
+        });
+      });
+
+      // Report
+      const btnReport = $("btnReport");
+      if(btnReport){
+        btnReport.addEventListener("click", ()=>{
+          alert("Спасибо! В демо-версии это форма. Позже сделаем отправку заявки на исправление данных.");
+        });
+      }
+
+      // Copy link
+      $("btnCopyLink").addEventListener("click", async ()=>{
+        try{
+          await navigator.clipboard.writeText(window.location.href);
+          $("btnCopyLink").textContent = "✅ Ссылка скопирована";
+          setTimeout(()=> $("btnCopyLink").textContent = "🔗 Скопировать ссылку", 1400);
+        }catch{
+          alert("Не удалось скопировать. Скопируйте вручную из адресной строки.");
+        }
+      });
+    }
+
+    function openModal(src, caption){
+      $("modalImg").src = src;
+      $("modalCaption").textContent = caption || "Фото";
+      $("modal").classList.add("open");
+    }
+    function closeModal(){
+      $("modal").classList.remove("open");
+      $("modalImg").src = "";
+    }
+
+    $("modalClose").addEventListener("click", closeModal);
+    $("modal").addEventListener("click", (e)=>{ if(e.target.id === "modal") closeModal(); });
+    window.addEventListener("keydown", (e)=>{ if(e.key === "Escape") closeModal(); });
+
+    async function init(){
+      const id = getParam("id");
+      if(!id){
+        $("page").innerHTML = `<div class="empty">Нет параметра <b>id</b>. Откройте так: <b>place.html?id=1</b></div>`;
+        return;
+      }
+
+      try{
+        const [cats, placesRaw] = await Promise.all([
+          loadJSON(CATEGORIES_URL),
+          loadJSON(PLACES_URL)
+        ]);
+
+        const categories = Array.isArray(cats) ? cats : [];
+        const places = (Array.isArray(placesRaw) ? placesRaw : []).map(normalizePlace);
+
+        const p = places.find(x => String(x.id) === String(id));
+        if(!p){
+          $("page").innerHTML = `<div class="empty">Место с id=<b>${esc(id)}</b> не найдено.</div>`;
+          return;
+        }
+
+        document.title = `KoftaGard — ${p.name}`;
+        renderPlace(categories, p);
+      }catch(err){
+        console.error(err);
+        $("page").innerHTML = `<div class="empty">Ошибка загрузки данных. Проверьте пути к JSON и валидность файлов.</div>`;
+      }
+    }
+
+    init();
+  </script>
+</body>
+</html>
