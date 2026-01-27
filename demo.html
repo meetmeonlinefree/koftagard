@@ -165,6 +165,14 @@
       overflow:hidden;
       transition: transform .08s ease, box-shadow .15s ease, border-color .15s ease;
     }
+
+    .card a { color: inherit; }
+    .card a:focus { outline: none; }
+    .card a:focus-visible {
+      box-shadow: 0 0 0 4px rgba(76,175,80,.18);
+      border-radius: var(--radius);
+    }
+
     .card:hover{
       transform: translateY(-2px);
       box-shadow: 0 18px 45px rgba(2,44,18,.10);
@@ -375,43 +383,50 @@
       const catTitle = getCategoryTitle(p.category);
       const phone = p.contacts.phone;
       const hasGeo = Number.isFinite(p.geo.lat) && Number.isFinite(p.geo.lng);
-
+    
       const dist = (state.userPos && hasGeo)
         ? kmFromTo(state.userPos.lat, state.userPos.lng, p.geo.lat, p.geo.lng)
         : null;
-
+    
       const pill = dist != null ? `${catTitle} • ${dist.toFixed(1)} км` : catTitle;
       const rating = (p.rating != null) ? `⭐ ${p.rating.toFixed(1)}` : "—";
       const price = (p.price_level != null) ? "₸".repeat(Math.max(1, Math.min(4, p.price_level))) : "";
-
+    
       const img = p.cover
         ? `<img src="${esc(p.cover)}" alt="${esc(p.name)}" loading="lazy">`
         : `<div style="width:100%;height:100%;display:grid;place-items:center;color:rgba(15,23,42,.55)">Нет фото</div>`;
-
+    
       const mapsLink = hasGeo ? `https://www.google.com/maps?q=${p.geo.lat},${p.geo.lng}` : "";
-
+      const detailsLink = `./place.html?id=${encodeURIComponent(p.id)}`;
+    
       return `
-        <article class="card">
-          <div class="thumb">
-            ${img}
-            <div class="pill">${esc(pill)}</div>
-          </div>
-          <div class="content">
-            <h3 class="name">${esc(p.name)}</h3>
-            <p class="meta">${esc(p.address || "Адрес не указан")}</p>
-            <div class="row">
-              <div class="stars">${rating}</div>
-              <div>${price}</div>
+        <article class="card" role="article">
+          <a href="${detailsLink}" style="display:block">
+            <div class="thumb">
+              ${img}
+              <div class="pill">${esc(pill)}</div>
             </div>
+            <div class="content">
+              <h3 class="name">${esc(p.name)}</h3>
+              <p class="meta">${esc(p.address || "Адрес не указан")}</p>
+              <div class="row">
+                <div class="stars">${rating}</div>
+                <div>${price}</div>
+              </div>
+            </div>
+          </a>
+    
+          <div class="content" style="padding-top:0">
             <div class="btns">
-              ${phone ? `<a href="tel:${esc(phone)}">📞 Позвонить</a>` : ""}
-              ${mapsLink ? `<a target="_blank" rel="noopener" href="${esc(mapsLink)}">🧭 Маршрут</a>` : ""}
-              ${p.contacts.website ? `<a target="_blank" rel="noopener" href="${esc(p.contacts.website)}">🌐 Сайт</a>` : ""}
+              ${phone ? `<a href="tel:${esc(phone)}" onclick="event.stopPropagation()">📞 Позвонить</a>` : ""}
+              ${mapsLink ? `<a target="_blank" rel="noopener" href="${esc(mapsLink)}" onclick="event.stopPropagation()">🧭 Маршрут</a>` : ""}
+              ${p.contacts.website ? `<a target="_blank" rel="noopener" href="${esc(p.contacts.website)}" onclick="event.stopPropagation()">🌐 Сайт</a>` : ""}
             </div>
           </div>
         </article>
       `;
     }
+
 
     function applyFilters(){
       const q = state.query.trim();
