@@ -390,7 +390,7 @@
     
       const pill = dist != null ? `${catTitle} • ${dist.toFixed(1)} км` : catTitle;
       const rating = (p.rating != null) ? `⭐ ${p.rating.toFixed(1)}` : "—";
-      const price = (p.price_level != null) ? "TJS".repeat(Math.max(1, Math.min(4, p.price_level))) : "";
+      const price = (p.price_level != null) ? "".repeat(Math.max(1, Math.min(4, p.price_level))) : "";
     
       const img = p.cover
         ? `<img src="${esc(p.cover)}" alt="${esc(p.name)}" loading="lazy">`
