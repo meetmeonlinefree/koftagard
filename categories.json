@@ -1,0 +1,9 @@
+[
+  { "id": "food", "title": "Еда", "icon": "utensils" },
+  { "id": "beauty", "title": "Салоны", "icon": "sparkles" },
+  { "id": "auto", "title": "Автосервис", "icon": "car" },
+  { "id": "pharmacy", "title": "Аптеки", "icon": "cross" },
+  { "id": "repair", "title": "Ремонт", "icon": "wrench" },
+  { "id": "shops", "title": "Магазины", "icon": "store" },
+  { "id": "services", "title": "Банки/услуги", "icon": "building" }
+]
