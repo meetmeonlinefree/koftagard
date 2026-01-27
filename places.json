@@ -57,13 +57,13 @@
   },
   {
     "id": "3",
-    "name": "Tea House Sugd",
+    "name": "Ресторан Щохнома",
     "category": "food",
     "city": "Khujand",
-    "address": "Худжанд, ...",
+    "address": "Худжанд, 34 мкр, назди магозаи Аним",
     "geo": { "lat": 40.2851, "lng": 69.6249 },
-    "cover": "https://example.com/tea-house-sugd/cover.jpg",
-    "images": ["https://example.com/tea-house-sugd/1.jpg", "https://example.com/tea-house-sugd/2.jpg"],
+    "cover": "https://avatars.mds.yandex.net/get-altay/14296532/2a00000199cb83332e730df4cfd7a367513c/orig",
+    "images": ["https://avatars.mds.yandex.net/get-altay/14296532/2a00000199cb83332e730df4cfd7a367513c/orig", "https://avatars.mds.yandex.net/get-altay/14296532/2a00000199cb83332e730df4cfd7a367513c/orig"],
     "contacts": { "phone": "+992902222222", "whatsapp": "+992902222222", "website": "" },
     "hours": {
       "mon": "08:00-21:00",
