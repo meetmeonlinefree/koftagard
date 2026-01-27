@@ -421,13 +421,13 @@
   },
   {
     "id": "17",
-    "name": "Notary & Docs Center",
+    "name": "Банк Эсхата",
     "category": "services",
     "city": "Khujand",
-    "address": "Худжанд, ...",
+    "address": "Худжанд, Гулистон",
     "geo": { "lat": 40.2866, "lng": 69.6304 },
-    "cover": "https://example.com/notary/cover.jpg",
-    "images": ["https://example.com/notary/1.jpg", "https://example.com/notary/2.jpg"],
+    "cover": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVtItapY_VWFi7gsdGTXHFiLVFNqpWR-l9Xw&s",
+    "images": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVtItapY_VWFi7gsdGTXHFiLVFNqpWR-l9Xw&s", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVtItapY_VWFi7gsdGTXHFiLVFNqpWR-l9Xw&s"],
     "contacts": { "phone": "+992917777777", "whatsapp": "+992917777777", "website": "" },
     "hours": {
       "mon": "09:00-18:00",
