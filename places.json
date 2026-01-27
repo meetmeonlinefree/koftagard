@@ -29,8 +29,6 @@
     "source": "manual",
     "updated_at": "2026-01-27"
   },
-
-  // ---------- ЕДА (food) ----------
   {
     "id": "2",
     "name": "Khujand Burger",
@@ -83,8 +81,6 @@
     "source": "manual",
     "updated_at": "2026-01-27"
   },
-
-  // ---------- САЛОНЫ (beauty) ----------
   {
     "id": "4",
     "name": "Beauty Studio Noor",
@@ -163,8 +159,6 @@
     "source": "manual",
     "updated_at": "2026-01-27"
   },
-
-  // ---------- АВТОСЕРВИС (auto) ----------
   {
     "id": "7",
     "name": "AutoService Pro Khujand",
@@ -217,8 +211,6 @@
     "source": "manual",
     "updated_at": "2026-01-27"
   },
-
-  // ---------- АПТЕКИ (pharmacy) ----------
   {
     "id": "9",
     "name": "Аптека 24",
@@ -271,8 +263,6 @@
     "source": "manual",
     "updated_at": "2026-01-27"
   },
-
-  // ---------- РЕМОНТ (repair) ----------
   {
     "id": "11",
     "name": "Repair Lab (Телефоны)",
@@ -351,8 +341,6 @@
     "source": "manual",
     "updated_at": "2026-01-27"
   },
-
-  // ---------- МАГАЗИНЫ (shops) ----------
   {
     "id": "14",
     "name": "Market Sugd",
@@ -405,8 +393,6 @@
     "source": "manual",
     "updated_at": "2026-01-27"
   },
-
-  // ---------- БАНКИ/УСЛУГИ (services) ----------
   {
     "id": "16",
     "name": "Bank Service Point",
