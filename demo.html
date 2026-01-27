@@ -4,273 +4,182 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>KoftaGard — Справочник Худжанда</title>
-  <meta name="description" content="KoftaGard — городской справочник Худжанда: еда, салоны, аптеки, услуги и многое другое рядом с вами." />
 
   <style>
     :root{
-      --bg: #0b0d12;
-      --card: rgba(255,255,255,.06);
-      --card2: rgba(255,255,255,.08);
-      --border: rgba(255,255,255,.12);
-      --text: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.68);
-      --muted2: rgba(255,255,255,.52);
-      --accent: #7c5cff; /* брендовый акцент */
-      --accent2: #2dd4bf;
-      --shadow: 0 20px 60px rgba(0,0,0,.45);
+      --bg: #f3fbf6;
+      --card: #ffffff;
+      --border: rgba(16, 24, 40, .10);
+      --text: #0f172a;
+      --muted: rgba(15, 23, 42, .70);
+      --muted2: rgba(15, 23, 42, .55);
+      --accent: #22c55e;   /* green */
+      --accent2:#16a34a;   /* darker green */
+      --shadow: 0 18px 50px rgba(2, 44, 18, .10);
       --radius: 18px;
     }
-
     *{ box-sizing: border-box; }
     body{
       margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
-      background: radial-gradient(1000px 600px at 20% -10%, rgba(124,92,255,.35), transparent 60%),
-                  radial-gradient(900px 500px at 80% 0%, rgba(45,212,191,.18), transparent 55%),
-                  radial-gradient(900px 650px at 50% 110%, rgba(124,92,255,.15), transparent 60%),
-                  var(--bg);
+      background:
+        radial-gradient(900px 500px at 20% -10%, rgba(34,197,94,.18), transparent 60%),
+        radial-gradient(900px 500px at 80% 0%, rgba(34,197,94,.10), transparent 60%),
+        var(--bg);
       color: var(--text);
-      min-height: 100vh;
+      min-height:100vh;
     }
+    .wrap{ max-width: 1120px; margin:0 auto; padding: 20px 16px 48px; }
+    a{ color: inherit; text-decoration:none; }
 
-    a{ color: inherit; text-decoration: none; }
-    .wrap{ max-width: 1120px; margin: 0 auto; padding: 20px 16px 48px; }
-
-    /* Top bar */
     .topbar{
       display:flex; align-items:center; justify-content:space-between;
-      gap:12px; padding: 10px 0 18px;
+      gap:12px; padding: 8px 0 18px;
     }
-    .brand{
-      display:flex; align-items:center; gap:10px;
-      font-weight: 750; letter-spacing: .2px;
-    }
+    .brand{ display:flex; align-items:center; gap:10px; font-weight: 800; }
     .logo{
-      width: 36px; height: 36px; border-radius: 12px;
-      background: linear-gradient(135deg, rgba(124,92,255,1), rgba(45,212,191,1));
-      box-shadow: 0 10px 30px rgba(124,92,255,.25);
+      width: 38px; height: 38px; border-radius: 14px;
+      background: linear-gradient(135deg, var(--accent), rgba(34,197,94,.55));
+      box-shadow: 0 10px 30px rgba(34,197,94,.18);
     }
-    .brand small{ display:block; color: var(--muted2); font-weight: 600; margin-top: 2px; }
+    .brand small{ display:block; color: var(--muted2); font-weight: 650; margin-top:2px; }
+
     .actions{ display:flex; gap:10px; flex-wrap:wrap; }
     .btn{
       display:inline-flex; align-items:center; gap:8px;
       border: 1px solid var(--border);
-      background: rgba(255,255,255,.04);
+      background: rgba(255,255,255,.8);
       padding: 10px 12px;
       border-radius: 14px;
-      color: var(--text);
-      font-weight: 650;
-      transition: transform .08s ease, background .15s ease, border-color .15s ease;
+      font-weight: 750;
+      transition: transform .08s ease, box-shadow .15s ease, border-color .15s ease;
       user-select:none;
     }
-    .btn:hover{ background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.18); transform: translateY(-1px); }
+    .btn:hover{ transform: translateY(-1px); box-shadow: 0 10px 25px rgba(2,44,18,.08); border-color: rgba(34,197,94,.35); }
     .btn.primary{
-      border-color: rgba(124,92,255,.6);
-      background: rgba(124,92,255,.18);
-    }
-    .btn.primary:hover{
-      border-color: rgba(124,92,255,.8);
-      background: rgba(124,92,255,.24);
+      background: rgba(34,197,94,.14);
+      border-color: rgba(34,197,94,.45);
     }
 
-    /* Hero */
     .hero{
       border: 1px solid var(--border);
-      background: linear-gradient(135deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
+      background: rgba(255,255,255,.85);
       border-radius: calc(var(--radius) + 6px);
       padding: 22px;
       box-shadow: var(--shadow);
-      overflow:hidden;
-      position:relative;
     }
-    .hero:before{
-      content:"";
-      position:absolute; inset:-2px;
-      background: radial-gradient(800px 300px at 30% 0%, rgba(124,92,255,.18), transparent 60%),
-                  radial-gradient(700px 260px at 80% 30%, rgba(45,212,191,.14), transparent 60%);
-      pointer-events:none;
-    }
-    .hero-inner{ position:relative; display:grid; grid-template-columns: 1.1fr .9fr; gap:18px; align-items:center; }
-    @media (max-width: 880px){
-      .hero-inner{ grid-template-columns: 1fr; }
-    }
+    .hero-inner{ display:grid; grid-template-columns: 1.1fr .9fr; gap:18px; align-items:center; }
+    @media (max-width: 880px){ .hero-inner{ grid-template-columns: 1fr; } }
     .hero h1{
       margin:0 0 8px;
       font-size: clamp(24px, 3.2vw, 38px);
       line-height: 1.15;
       letter-spacing: -.4px;
     }
-    .hero p{
-      margin:0 0 16px;
-      color: var(--muted);
-      font-size: 15.5px;
-      line-height: 1.55;
-      max-width: 58ch;
-    }
+    .hero p{ margin:0 0 16px; color: var(--muted); font-size: 15.5px; line-height: 1.55; max-width: 60ch; }
 
-    /* Search panel */
     .searchpanel{
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(10,12,18,.55);
-      backdrop-filter: blur(10px);
+      border: 1px solid rgba(34,197,94,.22);
+      background: rgba(243,251,246,.75);
       border-radius: 18px;
       padding: 14px;
       display:grid;
       gap:10px;
     }
-    .fieldrow{
-      display:grid;
-      grid-template-columns: 1fr 220px 180px;
-      gap:10px;
-    }
-    @media (max-width: 880px){
-      .fieldrow{ grid-template-columns: 1fr; }
-    }
+    .fieldrow{ display:grid; grid-template-columns: 1fr 220px 180px; gap:10px; }
+    @media (max-width: 880px){ .fieldrow{ grid-template-columns: 1fr; } }
+
     input, select{
       width:100%;
       padding: 12px 12px;
       border-radius: 14px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(15, 23, 42, .12);
+      background: #fff;
       color: var(--text);
       outline:none;
       font-size: 15px;
     }
-    input::placeholder{ color: rgba(255,255,255,.5); }
-    select option{ color: #111; }
-    .hint{
-      display:flex; gap:10px; align-items:center; justify-content:space-between; flex-wrap:wrap;
-      color: var(--muted2);
-      font-size: 13px;
-      margin-top: 2px;
-    }
+    input:focus, select:focus{ border-color: rgba(34,197,94,.6); box-shadow: 0 0 0 4px rgba(34,197,94,.14); }
+    .hint{ display:flex; gap:10px; align-items:center; justify-content:space-between; flex-wrap:wrap; color: var(--muted2); font-size: 13px; }
 
-    /* Sections */
     .section{ margin-top: 22px; }
-    .section h2{
-      margin: 0 0 10px;
-      font-size: 18px;
-      letter-spacing: -.2px;
-    }
-    .sub{
-      margin: -6px 0 12px;
-      color: var(--muted2);
-      font-size: 13.5px;
-    }
+    .section h2{ margin:0 0 10px; font-size: 18px; }
+    .sub{ margin: -6px 0 12px; color: var(--muted2); font-size: 13.5px; }
 
-    /* Category pills */
-    .cats{
-      display:grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap:10px;
-    }
-    @media (max-width: 980px){
-      .cats{ grid-template-columns: repeat(3, 1fr); }
-    }
-    @media (max-width: 520px){
-      .cats{ grid-template-columns: repeat(2, 1fr); }
-    }
+    .cats{ display:grid; grid-template-columns: repeat(7, 1fr); gap:10px; }
+    @media (max-width: 980px){ .cats{ grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 520px){ .cats{ grid-template-columns: repeat(2, 1fr); } }
 
     .cat{
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(15, 23, 42, .12);
+      background: #fff;
       border-radius: 16px;
       padding: 12px 12px;
       cursor:pointer;
-      transition: transform .08s ease, background .15s ease, border-color .15s ease;
+      transition: transform .08s ease, box-shadow .15s ease, border-color .15s ease;
       min-height: 54px;
       display:flex; align-items:center; justify-content:space-between; gap:10px;
     }
-    .cat:hover{ transform: translateY(-1px); background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.18); }
+    .cat:hover{ transform: translateY(-1px); box-shadow: 0 10px 25px rgba(2,44,18,.08); border-color: rgba(34,197,94,.35); }
     .cat.active{
-      border-color: rgba(124,92,255,.7);
-      background: rgba(124,92,255,.16);
+      border-color: rgba(34,197,94,.65);
+      background: rgba(34,197,94,.10);
     }
-    .cat .left{ display:flex; align-items:center; gap:10px; }
     .badge{
       width: 34px; height: 34px; border-radius: 12px;
-      background: rgba(255,255,255,.06);
+      background: rgba(34,197,94,.10);
       display:grid; place-items:center;
-      border: 1px solid rgba(255,255,255,.10);
+      border: 1px solid rgba(34,197,94,.20);
     }
-    .cat .title{ font-weight: 700; }
+    .cat .title{ font-weight: 800; }
     .count{ color: var(--muted2); font-size: 12.5px; }
 
-    /* Cards grid */
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-    }
-    @media (max-width: 980px){
-      .grid{ grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 580px){
-      .grid{ grid-template-columns: 1fr; }
-    }
+    .grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    @media (max-width: 980px){ .grid{ grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 580px){ .grid{ grid-template-columns: 1fr; } }
 
     .card{
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(15, 23, 42, .12);
+      background: #fff;
       border-radius: var(--radius);
       overflow:hidden;
-      transition: transform .08s ease, border-color .15s ease, background .15s ease;
+      transition: transform .08s ease, box-shadow .15s ease, border-color .15s ease;
     }
-    .card:hover{ transform: translateY(-2px); background: rgba(255,255,255,.055); border-color: rgba(255,255,255,.18); }
-    .thumb{
-      aspect-ratio: 16/9;
-      background: rgba(255,255,255,.05);
-      position:relative;
-    }
-    .thumb img{
-      width:100%; height:100%; object-fit:cover; display:block;
-    }
+    .card:hover{ transform: translateY(-2px); box-shadow: 0 18px 45px rgba(2,44,18,.10); border-color: rgba(34,197,94,.35); }
+    .thumb{ aspect-ratio: 16/9; background: rgba(15, 23, 42, .04); position:relative; }
+    .thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
     .thumb .pill{
       position:absolute; left:12px; top:12px;
       padding: 6px 10px;
       border-radius: 999px;
       font-size: 12px;
-      font-weight: 700;
-      background: rgba(0,0,0,.40);
-      border: 1px solid rgba(255,255,255,.18);
+      font-weight: 800;
+      background: rgba(255,255,255,.85);
+      border: 1px solid rgba(15, 23, 42, .12);
       backdrop-filter: blur(8px);
     }
     .content{ padding: 12px 12px 14px; }
-    .name{
-      margin:0 0 6px;
-      font-weight: 780;
-      font-size: 16px;
-      letter-spacing: -.2px;
-    }
-    .meta{
-      margin:0 0 10px;
-      color: var(--muted);
-      font-size: 13.5px;
-      line-height: 1.45;
-    }
-    .row{
-      display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
-      margin-bottom: 10px;
-      color: var(--muted2);
-      font-size: 13px;
-    }
-    .stars{ color: rgba(255,255,255,.82); font-weight: 700; }
-    .kpi{ color: var(--muted2); }
+    .name{ margin:0 0 6px; font-weight: 850; font-size: 16px; }
+    .meta{ margin:0 0 10px; color: var(--muted); font-size: 13.5px; line-height: 1.45; }
+    .row{ display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom: 10px; color: var(--muted2); font-size: 13px; }
+    .stars{ font-weight: 800; }
     .card .btns{ display:flex; gap:8px; flex-wrap:wrap; }
     .card .btns a{
       padding: 9px 10px;
       border-radius: 12px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
-      font-weight: 700;
+      border: 1px solid rgba(15, 23, 42, .12);
+      background: rgba(243,251,246,.8);
+      font-weight: 800;
       font-size: 13px;
     }
-    .card .btns a:hover{ border-color: rgba(255,255,255,.18); background: rgba(255,255,255,.06); }
+    .card .btns a:hover{ border-color: rgba(34,197,94,.40); background: rgba(34,197,94,.10); }
+
     .empty{
-      border: 1px dashed rgba(255,255,255,.18);
+      border: 1px dashed rgba(15, 23, 42, .18);
       border-radius: var(--radius);
       padding: 16px;
       color: var(--muted);
+      background: rgba(255,255,255,.7);
     }
 
     footer{
@@ -281,25 +190,19 @@
       justify-content:space-between;
       gap:10px;
       flex-wrap:wrap;
-      opacity:.95;
     }
-    .mini{
-      display:flex; gap:8px; align-items:center; flex-wrap:wrap;
-    }
-    .dot{ width:6px; height:6px; border-radius:50%; background: rgba(45,212,191,.9); box-shadow: 0 0 0 4px rgba(45,212,191,.12); }
   </style>
 </head>
 <body>
   <div class="wrap">
     <div class="topbar">
       <div class="brand">
-        <div class="logo" aria-hidden="true"></div>
+        <div class="logo"></div>
         <div>
           KoftaGard
           <small>Справочник Худжанда</small>
         </div>
       </div>
-
       <div class="actions">
         <button class="btn" id="btnLocate" type="button">📍 Рядом со мной</button>
         <a class="btn primary" href="#" id="btnAdd">➕ Добавить место</a>
@@ -309,11 +212,8 @@
     <section class="hero">
       <div class="hero-inner">
         <div>
-          <h1>Найдите магазины, сервисы и места в Худжанде — быстро и точно</h1>
-          <p>
-            KoftaGard помогает искать по категориям и локации, сохранять избранное и находить новые места.
-            Демо-версия: данные загружаются из <b>categories.json</b> и <b>places.json</b>.
-          </p>
+          <h1>Найдите нужное место в Худжанде — быстро</h1>
+          <p>Поиск по категориям и рядом с вами. Демо: данные из <b>categories.json</b> и <b>places.json</b>.</p>
 
           <div class="searchpanel">
             <div class="fieldrow">
@@ -335,28 +235,11 @@
         </div>
 
         <div class="searchpanel" style="padding:16px">
-          <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:12px">
-            <div>
-              <div style="font-weight:800; font-size:15px">Что можно сделать дальше</div>
-              <div style="color:var(--muted); font-size:13.5px; line-height:1.55; margin-top:6px">
-                1) Добавить страницу карточки места<br>
-                2) Подключить карту (Leaflet + OSM)<br>
-                3) Сделать форму “добавить место” (заявка)
-              </div>
-            </div>
-            <div class="badge" title="AI" style="border-color: rgba(124,92,255,.35); background: rgba(124,92,255,.12)">✨</div>
-          </div>
-
-          <div style="margin-top:12px; display:grid; gap:10px">
-            <div style="padding:12px; border-radius:16px; border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.03)">
-              <div style="font-weight:800">Фокус: Худжанд</div>
-              <div style="color:var(--muted2); margin-top:4px; font-size:13px">Еда • Салоны • Аптеки • Авто • Услуги</div>
-            </div>
-
-            <div style="padding:12px; border-radius:16px; border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.03)">
-              <div style="font-weight:800">Бизнесам</div>
-              <div style="color:var(--muted2); margin-top:4px; font-size:13px">Добавление, верификация, продвижение</div>
-            </div>
+          <div style="font-weight:850; margin-bottom:6px">MVP для KoftaGard Khujand</div>
+          <div style="color:var(--muted); font-size:13.5px; line-height:1.6">
+            • Главная + поиск<br>
+            • Карточка места (следующий шаг)<br>
+            • Форма “Добавить место” (заявка)<br>
           </div>
         </div>
       </div>
@@ -364,40 +247,39 @@
 
     <section class="section">
       <h2>Категории</h2>
-      <div class="sub">Выберите категорию — и сразу увидите места.</div>
+      <div class="sub">Нажмите на категорию — и результаты обновятся.</div>
       <div class="cats" id="cats"></div>
     </section>
 
     <section class="section">
       <h2>Результаты</h2>
-      <div class="sub">Фильтр по поиску/категории. Можно сортировать по рейтингу или “рядом”.</div>
+      <div class="sub">Фильтр по поиску/категории. Сортировка по рейтингу или “рядом”.</div>
       <div class="grid" id="results"></div>
       <div id="empty" class="empty" style="display:none; margin-top:12px;">Ничего не найдено. Попробуйте другой запрос или категорию.</div>
     </section>
 
     <section class="section">
       <h2>Популярное в Худжанде</h2>
-      <div class="sub">Подборка по рейтингу (demo-логика).</div>
+      <div class="sub">Подборка по рейтингу (demo).</div>
       <div class="grid" id="popular"></div>
     </section>
 
     <section class="section">
       <h2>Рядом со мной</h2>
-      <div class="sub">Требует геолокацию. Если нет — покажем подсказку.</div>
+      <div class="sub">Нажмите “Рядом со мной”, чтобы показать ближайшие места.</div>
       <div class="grid" id="near"></div>
       <div id="nearHint" class="empty" style="display:none; margin-top:12px;">
-        Нажмите “📍 Рядом со мной”, чтобы показать ближайшие места.
+        Нажмите “📍 Рядом со мной” и разрешите геолокацию.
       </div>
     </section>
 
     <footer>
-      <div class="mini"><span class="dot"></span> Demo • KoftaGard • Khujand</div>
-      <div class="mini">Данные: categories.json / places.json</div>
+      <div>Demo • KoftaGard • Khujand</div>
+      <div>Данные: categories.json / places.json</div>
     </footer>
   </div>
 
   <script>
-    // Поменяйте на URL если JSON лежит не рядом
     const CATEGORIES_URL = "./categories.json";
     const PLACES_URL = "./places.json";
 
@@ -412,17 +294,7 @@
 
     const $ = (id) => document.getElementById(id);
 
-    const icons = {
-      food: "🍽️",
-      beauty: "💇‍♀️",
-      auto: "🚗",
-      pharmacy: "💊",
-      repair: "🛠️",
-      shops: "🏪",
-      services: "🏛️"
-    };
-
-    function safeText(s){
+    function esc(s){
       return String(s ?? "").replace(/[&<>"']/g, (m) => ({
         "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
       }[m]));
@@ -437,17 +309,6 @@
                 Math.cos(toRad(lat1))*Math.cos(toRad(lat2))*
                 Math.sin(dLon/2)**2;
       return 2 * R * Math.asin(Math.sqrt(a));
-    }
-
-    function getCategoryTitle(catId){
-      const c = state.categories.find(x => x.id === catId);
-      return c ? c.title : catId;
-    }
-
-    function placeHasQuery(p, q){
-      if(!q) return true;
-      const hay = (p.name + " " + (p.address||"") + " " + (p.tags||[]).join(" ")).toLowerCase();
-      return hay.includes(q.toLowerCase());
     }
 
     function normalizePlace(p){
@@ -471,62 +332,40 @@
         hours: p.hours || {},
         tags: Array.isArray(p.tags) ? p.tags : [],
         rating: Number.isFinite(+p.rating) ? +p.rating : null,
-        price_level: Number.isFinite(+p.price_level) ? +p.price_level : null,
-        verified: !!p.verified,
-        source: p.source || "manual",
-        updated_at: p.updated_at || ""
+        price_level: Number.isFinite(+p.price_level) ? +p.price_level : null
       };
     }
 
-    function renderCategories(){
-      const catsEl = $("cats");
-      catsEl.innerHTML = "";
+    function getCategoryTitle(catId){
+      const c = state.categories.find(x => x.id === catId);
+      return c ? c.title : catId;
+    }
 
-      // counts
-      const counts = state.places.reduce((acc,p)=>{
-        acc[p.category] = (acc[p.category]||0) + 1;
-        return acc;
-      }, {});
-
-      for(const c of state.categories){
-        const isActive = state.selectedCategory === c.id;
-        const el = document.createElement("button");
-        el.type = "button";
-        el.className = "cat" + (isActive ? " active" : "");
-        el.innerHTML = `
-          <div class="left">
-            <div class="badge">${safeText(icons[c.id] || "📍")}</div>
-            <div>
-              <div class="title">${safeText(c.title)}</div>
-              <div class="count">${(counts[c.id]||0)} мест</div>
-            </div>
-          </div>
-          <div style="color:var(--muted2); font-weight:900">›</div>
-        `;
-        el.addEventListener("click", ()=>{
-          state.selectedCategory = (state.selectedCategory === c.id) ? "" : c.id;
-          syncControls();
-          renderAll();
-        });
-        catsEl.appendChild(el);
-      }
+    function placeHasQuery(p, q){
+      if(!q) return true;
+      const hay = (p.name + " " + (p.address||"") + " " + (p.tags||[]).join(" ")).toLowerCase();
+      return hay.includes(q.toLowerCase());
     }
 
     function cardHTML(p){
       const catTitle = getCategoryTitle(p.category);
       const phone = p.contacts.phone;
       const hasGeo = Number.isFinite(p.geo.lat) && Number.isFinite(p.geo.lng);
+
       const dist = (state.userPos && hasGeo)
         ? kmFromTo(state.userPos.lat, state.userPos.lng, p.geo.lat, p.geo.lng)
         : null;
 
       const pill = dist != null ? `${catTitle} • ${dist.toFixed(1)} км` : catTitle;
+
       const rating = (p.rating != null) ? `⭐ ${p.rating.toFixed(1)}` : "—";
       const price = (p.price_level != null) ? "₸".repeat(Math.max(1, Math.min(4, p.price_level))) : "";
 
       const img = p.cover
-        ? `<img src="${safeText(p.cover)}" alt="${safeText(p.name)}" loading="lazy">`
-        : `<div style="width:100%;height:100%;display:grid;place-items:center;color:var(--muted2)">Нет фото</div>`;
+        ? `<img src="${esc(p.cover)}" alt="${esc(p.name)}" loading="lazy"
+             onerror="this.onerror=null;this.replaceWith(document.createElement('div'));"
+           >`
+        : `<div style="width:100%;height:100%;display:grid;place-items:center;color:rgba(15,23,42,.55)">Нет фото</div>`;
 
       const mapsLink = hasGeo ? `https://www.google.com/maps?q=${p.geo.lat},${p.geo.lng}` : "";
 
@@ -534,19 +373,19 @@
         <article class="card">
           <div class="thumb">
             ${img}
-            <div class="pill">${safeText(pill)}</div>
+            <div class="pill">${esc(pill)}</div>
           </div>
           <div class="content">
-            <h3 class="name">${safeText(p.name)}</h3>
-            <p class="meta">${safeText(p.address || "Адрес не указан")}</p>
+            <h3 class="name">${esc(p.name)}</h3>
+            <p class="meta">${esc(p.address || "Адрес не указан")}</p>
             <div class="row">
               <div class="stars">${rating}</div>
-              <div class="kpi">${price}</div>
+              <div>${price}</div>
             </div>
             <div class="btns">
-              ${phone ? `<a href="tel:${safeText(phone)}">📞 Позвонить</a>` : ""}
-              ${mapsLink ? `<a target="_blank" rel="noopener" href="${safeText(mapsLink)}">🧭 Маршрут</a>` : ""}
-              ${p.contacts.website ? `<a target="_blank" rel="noopener" href="${safeText(p.contacts.website)}">🌐 Сайт</a>` : ""}
+              ${phone ? `<a href="tel:${esc(phone)}">📞 Позвонить</a>` : ""}
+              ${mapsLink ? `<a target="_blank" rel="noopener" href="${esc(mapsLink)}">🧭 Маршрут</a>` : ""}
+              ${p.contacts.website ? `<a target="_blank" rel="noopener" href="${esc(p.contacts.website)}">🌐 Сайт</a>` : ""}
             </div>
           </div>
         </article>
@@ -560,11 +399,10 @@
       let list = state.places.filter(p => {
         const okCat = !cat || p.category === cat;
         const okQ = placeHasQuery(p, q);
-        const okCity = (p.city || "").toLowerCase() === "khujand"; // фокус города
+        const okCity = (p.city || "").toLowerCase() === "khujand";
         return okCat && okQ && okCity;
       });
 
-      // sort
       if(state.sort === "rating"){
         list.sort((a,b)=> (b.rating||0) - (a.rating||0));
       } else if(state.sort === "near"){
@@ -577,11 +415,46 @@
           return da - db;
         });
       } else {
-        // popular (demo): rating desc then id
         list.sort((a,b)=> (b.rating||0) - (a.rating||0));
       }
 
       return list;
+    }
+
+    function renderCategories(){
+      const catsEl = $("cats");
+      catsEl.innerHTML = "";
+
+      const counts = state.places.reduce((acc,p)=>{
+        acc[p.category] = (acc[p.category]||0) + 1;
+        return acc;
+      }, {});
+
+      for(const c of state.categories){
+        const isActive = state.selectedCategory === c.id;
+        const icon = c.icon || "📍";
+
+        const el = document.createElement("button");
+        el.type = "button";
+        el.className = "cat" + (isActive ? " active" : "");
+        el.innerHTML = `
+          <div style="display:flex; align-items:center; gap:10px">
+            <div class="badge">${esc(icon)}</div>
+            <div>
+              <div class="title">${esc(c.title)}</div>
+              <div class="count">${(counts[c.id]||0)} мест</div>
+            </div>
+          </div>
+          <div style="color:rgba(15,23,42,.45); font-weight:900">›</div>
+        `;
+        el.addEventListener("click", ()=>{
+          state.selectedCategory = (state.selectedCategory === c.id) ? "" : c.id;
+          $("catSelect").value = state.selectedCategory;
+          renderAll();
+        });
+
+        catsEl.appendChild(el);
+      }
     }
 
     function renderResults(){
@@ -596,7 +469,6 @@
         .filter(p => (p.city||"").toLowerCase() === "khujand")
         .sort((a,b)=> (b.rating||0) - (a.rating||0))
         .slice(0, 6);
-
       $("popular").innerHTML = list.map(cardHTML).join("") || `<div class="empty">Нет данных.</div>`;
     }
 
@@ -612,10 +484,7 @@
       const list = state.places
         .filter(p => (p.city||"").toLowerCase() === "khujand")
         .filter(p => Number.isFinite(p.geo.lat) && Number.isFinite(p.geo.lng))
-        .map(p => ({
-          p,
-          d: kmFromTo(state.userPos.lat, state.userPos.lng, p.geo.lat, p.geo.lng)
-        }))
+        .map(p => ({ p, d: kmFromTo(state.userPos.lat, state.userPos.lng, p.geo.lat, p.geo.lng) }))
         .sort((a,b)=> a.d - b.d)
         .slice(0, 6)
         .map(x => x.p);
@@ -628,12 +497,6 @@
       renderResults();
       renderPopular();
       renderNear();
-    }
-
-    function syncControls(){
-      $("catSelect").value = state.selectedCategory;
-      $("sort").value = state.sort;
-      // подсветка категорий — через renderCategories()
     }
 
     async function loadJSON(url){
@@ -652,41 +515,24 @@
         state.categories = Array.isArray(cats) ? cats : [];
         state.places = (Array.isArray(places) ? places : []).map(normalizePlace);
 
-        // fill select
         const sel = $("catSelect");
         sel.innerHTML = `<option value="">Все категории</option>` + state.categories
-          .map(c => `<option value="${safeText(c.id)}">${safeText(c.title)}</option>`)
+          .map(c => `<option value="${esc(c.id)}">${esc(c.title)}</option>`)
           .join("");
 
         $("status").textContent = `Загружено мест: ${state.places.length}`;
         renderAll();
       } catch(err){
         console.error(err);
-        $("status").textContent = "Ошибка загрузки JSON. Проверьте пути и CORS.";
+        $("status").textContent = "Ошибка загрузки JSON. Проверьте, что JSON валидный и пути правильные.";
       }
     }
 
-    // Events
-    $("q").addEventListener("input", (e)=>{
-      state.query = e.target.value;
-      renderResults();
-    });
+    $("q").addEventListener("input", (e)=>{ state.query = e.target.value; renderResults(); });
+    $("catSelect").addEventListener("change", (e)=>{ state.selectedCategory = e.target.value; renderAll(); });
+    $("sort").addEventListener("change", (e)=>{ state.sort = e.target.value; renderResults(); renderNear(); });
 
-    $("catSelect").addEventListener("change", (e)=>{
-      state.selectedCategory = e.target.value;
-      renderAll();
-    });
-
-    $("sort").addEventListener("change", (e)=>{
-      state.sort = e.target.value;
-      renderResults();
-      renderNear();
-    });
-
-    $("btnAdd").addEventListener("click", (e)=>{
-      e.preventDefault();
-      alert("Demo: тут будет форма добавления места (заявка на модерацию).");
-    });
+    $("btnAdd").addEventListener("click", (e)=>{ e.preventDefault(); alert("Demo: тут будет форма добавления места."); });
 
     $("btnLocate").addEventListener("click", ()=>{
       if(!navigator.geolocation){
@@ -701,9 +547,7 @@
           renderNear();
           if(state.sort === "near") renderResults();
         },
-        ()=>{
-          $("geoStatus").textContent = "Геолокация: доступ не предоставлен";
-        },
+        ()=>{ $("geoStatus").textContent = "Геолокация: доступ не предоставлен"; },
         { enableHighAccuracy: true, timeout: 8000, maximumAge: 60000 }
       );
     });
