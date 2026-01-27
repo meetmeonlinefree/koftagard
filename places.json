@@ -395,13 +395,13 @@
   },
   {
     "id": "16",
-    "name": "Bank Service Point",
+    "name": "Банк Душанбе Сити",
     "category": "services",
     "city": "Khujand",
-    "address": "Худжанд, ...",
+    "address": "Худжанд, Стадион Спартак",
     "geo": { "lat": 40.284, "lng": 69.6233 },
-    "cover": "https://example.com/bank-service/cover.jpg",
-    "images": ["https://example.com/bank-service/1.jpg"],
+    "cover": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJzp6gq2TGH3r7arR64-ftM0jPtTNA9DrfFQ&s",
+    "images": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJzp6gq2TGH3r7arR64-ftM0jPtTNA9DrfFQ&s"],
     "contacts": { "phone": "+992916666666", "whatsapp": "+992916666666", "website": "" },
     "hours": {
       "mon": "09:00-17:00",
