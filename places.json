@@ -369,13 +369,13 @@
   },
   {
     "id": "15",
-    "name": "Tech Store Khujand",
+    "name": "Анис",
     "category": "shops",
     "city": "Khujand",
-    "address": "Худжанд, ...",
+    "address": "Худжанд, 34 мкр",
     "geo": { "lat": 40.2777, "lng": 69.6229 },
-    "cover": "https://example.com/tech-store/cover.jpg",
-    "images": ["https://example.com/tech-store/1.jpg", "https://example.com/tech-store/2.jpg"],
+    "cover": "https://avatars.mds.yandex.net/get-altay/4332216/2a0000017889a0deea4a7ee5c4c30b5097ff/L_height",
+    "images": ["https://avatars.mds.yandex.net/get-altay/4332216/2a0000017889a0deea4a7ee5c4c30b5097ff/L_height", "https://avatars.mds.yandex.net/get-altay/4332216/2a0000017889a0deea4a7ee5c4c30b5097ff/L_height"],
     "contacts": { "phone": "+992915555555", "whatsapp": "+992915555555", "website": "" },
     "hours": {
       "mon": "09:00-20:00",
