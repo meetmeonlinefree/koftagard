@@ -1,13 +1,13 @@
 [
   {
     "id": "1",
-    "name": "Cafe Example",
+    "name": "Сихкабоби Мир",
     "category": "food",
     "city": "Khujand",
-    "address": "Худжанд, ...",
+    "address": "Худжанд, куч. Мир",
     "geo": { "lat": 40.283, "lng": 69.622 },
-    "cover": "https://example.com/cover.jpg",
-    "images": ["https://example.com/1.jpg", "https://example.com/2.jpg"],
+    "cover": "https://avatars.mds.yandex.net/get-altay/11299266/2a0000019204e4e7123cfc4c3f3dd62769f7/L_height",
+    "images": ["https://avatars.mds.yandex.net/get-altay/11299266/2a0000019204e4e7123cfc4c3f3dd62769f7/L_height", "https://avatars.mds.yandex.net/get-altay/11299266/2a0000019204e4e7123cfc4c3f3dd62769f7/L_height"],
     "contacts": {
       "phone": "+992900000000",
       "whatsapp": "+992900000000",
