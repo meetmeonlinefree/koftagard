@@ -444,5 +444,31 @@
     "verified": false,
     "source": "manual",
     "updated_at": "2026-01-27"
+  },
+  {
+    "id": "18",
+    "name": "Школа №8",
+    "category": "school",
+    "city": "Khujand",
+    "address": "Худжанд, 31 мкр",
+    "geo": { "lat": 40.301576, "lng": 69.644065 },
+    "cover": "https://avatars.mds.yandex.net/get-altay/16398472/2a000001993538553826c1ed223313c2bd66/XXL_height",
+    "images": ["https://avatars.mds.yandex.net/get-altay/16398472/2a000001993538553826c1ed223313c2bd66/XXL_height", "https://avatars.mds.yandex.net/get-altay/10700095/2a0000018c90dd3cb463d5fef08b8500d4c6/XXL_height", "https://avatars.mds.yandex.net/get-altay/8377501/2a0000018c90dbe67a0ced90db369d4a0fe7/XXL_height"],
+    "contacts": { "phone": "", "whatsapp": "", "website": "" },
+    "hours": {
+      "mon": "08:00-17:00",
+      "tue": "08:00-17:00",
+      "wed": "08:00-17:00",
+      "thu": "08:00-17:00",
+      "fri": "08:00-17:00",
+      "sat": "08:00-17:00",
+      "sun": "closed"
+    },
+    "tags": ["школа", "образование", "СОШ"],
+    "rating": 4.2,
+    "price_level": 2,
+    "verified": false,
+    "source": "manual",
+    "updated_at": "2026-02-05"
   }
 ]
