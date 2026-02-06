@@ -582,8 +582,8 @@
     "city": "Khujand",
     "address": "Худжанд, 19 мкр",
     "geo": { "lat": 40.2980023, "lng": 69.6074826 },
-    "cover": "https://lh3.googleusercontent.com/gps-cs-s/AHVAweqlbqpuhqAw-fxI_LCIhCHSYFA5LlOkJ5ynPSUZYOfMc1CkvLW-0mNzEdfAf_2lJYkkPjIKLp52CNebuLOLvd9UqtMMgs_jhChjJK2owjWd0NovK8s6eezGe9oQCRqeA_sGj181=w80-h92-p-k-no",
-    "images": ["https://lh3.googleusercontent.com/gps-cs-s/AHVAweqlbqpuhqAw-fxI_LCIhCHSYFA5LlOkJ5ynPSUZYOfMc1CkvLW-0mNzEdfAf_2lJYkkPjIKLp52CNebuLOLvd9UqtMMgs_jhChjJK2owjWd0NovK8s6eezGe9oQCRqeA_sGj181=w80-h92-p-k-no"],
+    "cover": "https://lh3.googleusercontent.com/gps-cs-s/AHVAweqlbqpuhqAw-fxI_LCIhCHSYFA5LlOkJ5ynPSUZYOfMc1CkvLW-0mNzEdfAf_2lJYkkPjIKLp52CNebuLOLvd9UqtMMgs_jhChjJK2owjWd0NovK8s6eezGe9oQCRqeA_sGj181=s680-w680-h510-rw",
+    "images": ["https://lh3.googleusercontent.com/gps-cs-s/AHVAweqlbqpuhqAw-fxI_LCIhCHSYFA5LlOkJ5ynPSUZYOfMc1CkvLW-0mNzEdfAf_2lJYkkPjIKLp52CNebuLOLvd9UqtMMgs_jhChjJK2owjWd0NovK8s6eezGe9oQCRqeA_sGj181=s680-w680-h510-rw"],
     "contacts": { "phone": "+992342228392", "whatsapp": "+992342228392", "website": "" },
     "hours": {
       "mon": "07:30-17:00",
