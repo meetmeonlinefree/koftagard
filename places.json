@@ -496,5 +496,31 @@
     "verified": false,
     "source": "manual",
     "updated_at": "2026-02-05"
+  },
+  {
+    "id": "20",
+    "name": "Школа №21",
+    "category": "school",
+    "city": "Khujand",
+    "address": "Худжанд, 34 мкр",
+    "geo": { "lat": 40.3055589, "lng": 69.6464572 },
+    "cover": "https://sun9-19.userapi.com/s/v1/ig1/V7Q5PJUknqdXYukQD0udVSblYAlJ8ULZWSqtmTU1qrwS2L1nPT7ADe-mFLziE7qPxX2vxVbA.jpg?quality=96&as=32x24,48x36,72x54,108x81,160x120,240x180,360x270,480x360,540x405,640x480,720x540,1024x768&from=bu&cs=640x0",
+    "images": ["https://sun9-19.userapi.com/s/v1/ig1/V7Q5PJUknqdXYukQD0udVSblYAlJ8ULZWSqtmTU1qrwS2L1nPT7ADe-mFLziE7qPxX2vxVbA.jpg?quality=96&as=32x24,48x36,72x54,108x81,160x120,240x180,360x270,480x360,540x405,640x480,720x540,1024x768&from=bu&cs=640x0"],
+    "contacts": { "phone": "", "whatsapp": "", "website": "" },
+    "hours": {
+      "mon": "07:30-17:00",
+      "tue": "07:30-17:00",
+      "wed": "07:30-17:00",
+      "thu": "07:30-17:00",
+      "fri": "07:30-17:00",
+      "sat": "07:30-17:00",
+      "sun": "closed"
+    },
+    "tags": ["школа", "образование", "СОШ"],
+    "rating": 4.8,
+    "price_level": 2,
+    "verified": false,
+    "source": "manual",
+    "updated_at": "2026-02-05"
   }
 ]
