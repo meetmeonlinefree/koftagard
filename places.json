@@ -704,5 +704,31 @@
     "verified": false,
     "source": "manual",
     "updated_at": "2026-02-05"
+  },
+  {
+    "id": "29",
+    "name": "Областная больница Худжанда",
+    "category": "hospital",
+    "city": "Khujand",
+    "address": "Худжанд, ул. Северная(Абрешим)",
+    "geo": { "lat": 40.3094774, "lng": 69.6503587 },
+    "cover": "https://lh3.googleusercontent.com/gps-cs-s/AHVAwerQxOv0EIfHyw_RpGbb_SRuLrNfbx6-SnQnGV_SBVpwoBILG0D9ZgnP1b0dz45DjX6lnR5o1cUP2UQ8VQykCxD7cN5GJyxKpASfsfnoK74Tu3g61_YSX5JRGzGislWIDjG7Ba86=w521-h240-k-no",
+    "images": ["https://lh3.googleusercontent.com/gps-cs-s/AHVAwerQxOv0EIfHyw_RpGbb_SRuLrNfbx6-SnQnGV_SBVpwoBILG0D9ZgnP1b0dz45DjX6lnR5o1cUP2UQ8VQykCxD7cN5GJyxKpASfsfnoK74Tu3g61_YSX5JRGzGislWIDjG7Ba86=w521-h240-k-no"],
+    "contacts": { "phone": "+992925559595.", "whatsapp": "992925559595", "website": "" },
+    "hours": {
+      "mon": "07:30-17:00",
+      "tue": "07:30-17:00",
+      "wed": "07:30-17:00",
+      "thu": "07:30-17:00",
+      "fri": "07:30-17:00",
+      "sat": "07:30-17:00",
+      "sun": "closed"
+    },
+    "tags": ["больница", "здоровье", "лекарство"],
+    "rating": 4.7,
+    "price_level": 2,
+    "verified": false,
+    "source": "manual",
+    "updated_at": "2026-02-05"
   }
 ]
