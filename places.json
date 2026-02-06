@@ -652,5 +652,57 @@
     "verified": false,
     "source": "manual",
     "updated_at": "2026-02-05"
+  },
+  {
+    "id": "27",
+    "name": "Школа №7",
+    "category": "school",
+    "city": "Khujand",
+    "address": "Худжанд, 20 мкр",
+    "geo": { "lat": 40.300897, "lng": 69.6203491 },
+    "cover": "https://scontent.fdyu2-1.fna.fbcdn.net/v/t39.30808-6/300400859_411091504458597_5046526953501954017_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=cc71e4&_nc_ohc=bzlxYX63RdQQ7kNvwEHgjNW&_nc_oc=AdlfbCW71_dyBRQdNNWuu4-dryAGziiqdYiJPs2yuVLwQnTuF51koAbKPGkLifpZzQ0&_nc_zt=23&_nc_ht=scontent.fdyu2-1.fna&_nc_gid=G5SuVM6rtlP0-o1IVqBALg&oh=00_AfvxWKfpw-H_CoYdny9dr1hufCXf1UMdBb8CTasi6QuWCA&oe=698B959C",
+    "images": ["https://scontent.fdyu2-1.fna.fbcdn.net/v/t39.30808-6/300400859_411091504458597_5046526953501954017_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=cc71e4&_nc_ohc=bzlxYX63RdQQ7kNvwEHgjNW&_nc_oc=AdlfbCW71_dyBRQdNNWuu4-dryAGziiqdYiJPs2yuVLwQnTuF51koAbKPGkLifpZzQ0&_nc_zt=23&_nc_ht=scontent.fdyu2-1.fna&_nc_gid=G5SuVM6rtlP0-o1IVqBALg&oh=00_AfvxWKfpw-H_CoYdny9dr1hufCXf1UMdBb8CTasi6QuWCA&oe=698B959C"],
+    "contacts": { "phone": "", "whatsapp": "", "website": "" },
+    "hours": {
+      "mon": "07:30-17:00",
+      "tue": "07:30-17:00",
+      "wed": "07:30-17:00",
+      "thu": "07:30-17:00",
+      "fri": "07:30-17:00",
+      "sat": "07:30-17:00",
+      "sun": "closed"
+    },
+    "tags": ["школа", "образование", "СОШ"],
+    "rating": 4.7,
+    "price_level": 2,
+    "verified": false,
+    "source": "manual",
+    "updated_at": "2026-02-05"
+  },
+  {
+    "id": "28",
+    "name": "Гимназия Кавсар",
+    "category": "school",
+    "city": "Khujand",
+    "address": "Худжанд, ул. Б. Бабаева(Старый автовокзал)",
+    "geo": { "lat": 40.2755256, "lng": 69.6089217 },
+    "cover": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwEiQH_QtddhuT70hFP-U_4zXKaLK4sd2MNg&s",
+    "images": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwEiQH_QtddhuT70hFP-U_4zXKaLK4sd2MNg&s"],
+    "contacts": { "phone": "+992927177877.", "whatsapp": "992927177877", "website": "" },
+    "hours": {
+      "mon": "07:30-17:00",
+      "tue": "07:30-17:00",
+      "wed": "07:30-17:00",
+      "thu": "07:30-17:00",
+      "fri": "07:30-17:00",
+      "sat": "07:30-17:00",
+      "sun": "closed"
+    },
+    "tags": ["школа", "образование", "СОШ"],
+    "rating": 4.7,
+    "price_level": 2,
+    "verified": false,
+    "source": "manual",
+    "updated_at": "2026-02-05"
   }
 ]
