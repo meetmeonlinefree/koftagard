@@ -522,5 +522,31 @@
     "verified": false,
     "source": "manual",
     "updated_at": "2026-02-05"
+  },
+  {
+    "id": "21",
+    "name": "Школа Ирфон",
+    "category": "school",
+    "city": "Khujand",
+    "address": "Худжанд, 27 мкр",
+    "geo": { "lat": 40.3064838, "lng": 69.62726829 },
+    "cover": "https://tj.gorodwiki.ru/photo/8188.jpg",
+    "images": ["https://tj.gorodwiki.ru/photo/8188.jpg"],
+    "contacts": { "phone": "+992929336868", "whatsapp": "+992929336868", "website": "http://irfon.tj" },
+    "hours": {
+      "mon": "07:30-17:00",
+      "tue": "07:30-17:00",
+      "wed": "07:30-17:00",
+      "thu": "07:30-17:00",
+      "fri": "07:30-17:00",
+      "sat": "07:30-17:00",
+      "sun": "closed"
+    },
+    "tags": ["школа", "образование", "СОШ"],
+    "rating": 4.7,
+    "price_level": 2,
+    "verified": false,
+    "source": "manual",
+    "updated_at": "2026-02-05"
   }
 ]
