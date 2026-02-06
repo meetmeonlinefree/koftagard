@@ -730,5 +730,31 @@
     "verified": false,
     "source": "manual",
     "updated_at": "2026-02-05"
+  },
+  {
+    "id": "30",
+    "name": "Городская больница Худжанда",
+    "category": "hospital",
+    "city": "Khujand",
+    "address": "Худжанд, улица Гагарина, 147А (Гостиница Эхсон)",
+    "geo": { "lat": 40.2741243, "lng": 69.6419681 },
+    "cover": "https://lh3.googleusercontent.com/gps-cs-s/AHVAwepahCJ_MKhrDOTde5m58rZS7DRAYB9STDbZYYahcnIeg_vn2C_6wi3heV00dqTOe4T86J59aujrdgdqRQbMKz0gbHIm7pi_YaUeDWnTeH7CdCxReDMkOTqs5klrMlmDNGx-cwM=w426-h240-k-no",
+    "images": ["https://lh3.googleusercontent.com/gps-cs-s/AHVAwepahCJ_MKhrDOTde5m58rZS7DRAYB9STDbZYYahcnIeg_vn2C_6wi3heV00dqTOe4T86J59aujrdgdqRQbMKz0gbHIm7pi_YaUeDWnTeH7CdCxReDMkOTqs5klrMlmDNGx-cwM=w426-h240-k-no"],
+    "contacts": { "phone": "+992342263107", "whatsapp": "992342263107", "website": "" },
+    "hours": {
+      "mon": "07:30-17:00",
+      "tue": "07:30-17:00",
+      "wed": "07:30-17:00",
+      "thu": "07:30-17:00",
+      "fri": "07:30-17:00",
+      "sat": "closed",
+      "sun": "closed"
+    },
+    "tags": ["больница", "здоровье", "лекарство"],
+    "rating": 4.7,
+    "price_level": 2,
+    "verified": false,
+    "source": "manual",
+    "updated_at": "2026-02-05"
   }
 ]
