@@ -756,5 +756,31 @@
     "verified": false,
     "source": "manual",
     "updated_at": "2026-02-05"
+  },
+  {
+    "id": "31",
+    "name": "Поликлиника 1",
+    "category": "hospital",
+    "city": "Khujand",
+    "address": "Худжанд, ул. Танбури, 17",
+    "geo": { "lat": 40.281695, "lng": 69.6166005 },
+    "cover": "https://lh3.googleusercontent.com/gps-cs-s/AHVAwercSZOU54hou4ZYxC5W97OMqiLHoIdI7X3uPfSQccKnxwQ-LK2T0WjHTJp99EWzvO1n-ACfmhv88gWA5aV5UjjPPorAoHiR6O08pCayX_UpUUOUe7ZKAjHHd_t3BkdL9pcxbR9ISA=w408-h306-k-no",
+    "images": ["https://lh3.googleusercontent.com/gps-cs-s/AHVAwercSZOU54hou4ZYxC5W97OMqiLHoIdI7X3uPfSQccKnxwQ-LK2T0WjHTJp99EWzvO1n-ACfmhv88gWA5aV5UjjPPorAoHiR6O08pCayX_UpUUOUe7ZKAjHHd_t3BkdL9pcxbR9ISA=w408-h306-k-no"],
+    "contacts": { "phone": "", "whatsapp": "", "website": "" },
+    "hours": {
+      "mon": "07:30-17:00",
+      "tue": "07:30-17:00",
+      "wed": "07:30-17:00",
+      "thu": "07:30-17:00",
+      "fri": "07:30-17:00",
+      "sat": "closed",
+      "sun": "closed"
+    },
+    "tags": ["больница", "здоровье", "лекарство"],
+    "rating": 4.7,
+    "price_level": 2,
+    "verified": false,
+    "source": "manual",
+    "updated_at": "2026-02-05"
   }
 ]
