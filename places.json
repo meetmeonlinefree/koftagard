@@ -470,5 +470,31 @@
     "verified": false,
     "source": "manual",
     "updated_at": "2026-02-05"
+  },
+  {
+    "id": "19",
+    "name": "Школа Оксфорд",
+    "category": "school",
+    "city": "Khujand",
+    "address": "Худжанд, Северо-Восточная Промзона",
+    "geo": { "lat": 40.3131165, "lng": 69.6640417 },
+    "cover": "https://avatars.mds.yandex.net/get-altay/13930885/2a0000019135585701179204116cb532d624/L_height",
+    "images": ["https://avatars.mds.yandex.net/get-altay/13930885/2a0000019135585701179204116cb532d624/L_height"],
+    "contacts": { "phone": "+992885597777", "whatsapp": "+992885597777", "website": "https://www.oxford.tj" },
+    "hours": {
+      "mon": "07:30-17:00",
+      "tue": "07:30-17:00",
+      "wed": "07:30-17:00",
+      "thu": "07:30-17:00",
+      "fri": "07:30-17:00",
+      "sat": "07:30-17:00",
+      "sun": "closed"
+    },
+    "tags": ["школа", "образование", "СОШ"],
+    "rating": 4.8,
+    "price_level": 2,
+    "verified": false,
+    "source": "manual",
+    "updated_at": "2026-02-05"
   }
 ]
