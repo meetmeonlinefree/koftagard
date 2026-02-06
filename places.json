@@ -600,5 +600,57 @@
     "verified": false,
     "source": "manual",
     "updated_at": "2026-02-05"
+  },
+  {
+    "id": "24",
+    "name": "Гимназия Сафина",
+    "category": "school",
+    "city": "Khujand",
+    "address": "Худжанд, ул. Пахтакор, 8",
+    "geo": { "lat": 40.2744776, "lng": 69.5985332 },
+    "cover": "https://lh3.googleusercontent.com/gps-cs-s/AHVAweqPc_lz7NoA48QgXGGexAmEm8D6Ej0FdwpvPjYS3YzuvsQbWFeKYZqppGCgrRO3622BGKA-P9rklQ1O1AdTIRzJjQnPX9Oq9EAkvcflunoWkev0HJXBiZecTN22JRxaDIZoUQ=s680-w680-h510-rw",
+    "images": ["https://lh3.googleusercontent.com/gps-cs-s/AHVAweqPc_lz7NoA48QgXGGexAmEm8D6Ej0FdwpvPjYS3YzuvsQbWFeKYZqppGCgrRO3622BGKA-P9rklQ1O1AdTIRzJjQnPX9Oq9EAkvcflunoWkev0HJXBiZecTN22JRxaDIZoUQ=s680-w680-h510-rw"],
+    "contacts": { "phone": "+992939000004", "whatsapp": "+992939000004", "website": "" },
+    "hours": {
+      "mon": "07:30-17:00",
+      "tue": "07:30-17:00",
+      "wed": "07:30-17:00",
+      "thu": "07:30-17:00",
+      "fri": "07:30-17:00",
+      "sat": "07:30-17:00",
+      "sun": "closed"
+    },
+    "tags": ["школа", "образование", "СОШ"],
+    "rating": 4.7,
+    "price_level": 2,
+    "verified": false,
+    "source": "manual",
+    "updated_at": "2026-02-05"
+  },
+  {
+    "id": "25",
+    "name": "Гимназия №13",
+    "category": "school",
+    "city": "Khujand",
+    "address": "Худжанд, 33 мкр",
+    "geo": { "lat": 40.3085057, "lng": 69.6394032 },
+    "cover": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdfW46QGzQImwWlkMtte_SmX_wR2ya8fjBeA&s",
+    "images": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdfW46QGzQImwWlkMtte_SmX_wR2ya8fjBeA&s"],
+    "contacts": { "phone": "+9928342251070", "whatsapp": "+9928342251070", "website": "http://maktabi13-tj.narod.ru" },
+    "hours": {
+      "mon": "07:30-17:00",
+      "tue": "07:30-17:00",
+      "wed": "07:30-17:00",
+      "thu": "07:30-17:00",
+      "fri": "07:30-17:00",
+      "sat": "07:30-17:00",
+      "sun": "closed"
+    },
+    "tags": ["школа", "образование", "СОШ"],
+    "rating": 4.7,
+    "price_level": 2,
+    "verified": false,
+    "source": "manual",
+    "updated_at": "2026-02-05"
   }
 ]
