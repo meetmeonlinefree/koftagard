@@ -574,5 +574,31 @@
     "verified": false,
     "source": "manual",
     "updated_at": "2026-02-05"
+  },
+  {
+    "id": "23",
+    "name": "Гимназия №24",
+    "category": "school",
+    "city": "Khujand",
+    "address": "Худжанд, 19 мкр",
+    "geo": { "lat": 40.2980023, "lng": 69.6074826 },
+    "cover": "https://lh3.googleusercontent.com/gps-cs-s/AHVAweqlbqpuhqAw-fxI_LCIhCHSYFA5LlOkJ5ynPSUZYOfMc1CkvLW-0mNzEdfAf_2lJYkkPjIKLp52CNebuLOLvd9UqtMMgs_jhChjJK2owjWd0NovK8s6eezGe9oQCRqeA_sGj181=w80-h92-p-k-no",
+    "images": ["https://lh3.googleusercontent.com/gps-cs-s/AHVAweqlbqpuhqAw-fxI_LCIhCHSYFA5LlOkJ5ynPSUZYOfMc1CkvLW-0mNzEdfAf_2lJYkkPjIKLp52CNebuLOLvd9UqtMMgs_jhChjJK2owjWd0NovK8s6eezGe9oQCRqeA_sGj181=w80-h92-p-k-no"],
+    "contacts": { "phone": "+992342228392", "whatsapp": "+992342228392", "website": "" },
+    "hours": {
+      "mon": "07:30-17:00",
+      "tue": "07:30-17:00",
+      "wed": "07:30-17:00",
+      "thu": "07:30-17:00",
+      "fri": "07:30-17:00",
+      "sat": "07:30-17:00",
+      "sun": "closed"
+    },
+    "tags": ["школа", "образование", "СОШ"],
+    "rating": 4.7,
+    "price_level": 2,
+    "verified": false,
+    "source": "manual",
+    "updated_at": "2026-02-05"
   }
 ]
