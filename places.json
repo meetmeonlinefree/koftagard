@@ -548,5 +548,31 @@
     "verified": false,
     "source": "manual",
     "updated_at": "2026-02-05"
+  },
+  {
+    "id": "22",
+    "name": "Школа №5",
+    "category": "school",
+    "city": "Khujand",
+    "address": "Худжанд, 27 мкр",
+    "geo": { "lat": 40.28594, "lng": 69.6249323 },
+    "cover": "https://tj.gorodwiki.ru/photo/8188.jpg",
+    "images": ["https://tj.gorodwiki.ru/photo/8188.jpg"],
+    "contacts": { "phone": "+992342263612", "whatsapp": "+992342263612", "website": "" },
+    "hours": {
+      "mon": "07:30-17:00",
+      "tue": "07:30-17:00",
+      "wed": "07:30-17:00",
+      "thu": "07:30-17:00",
+      "fri": "07:30-17:00",
+      "sat": "07:30-17:00",
+      "sun": "closed"
+    },
+    "tags": ["школа", "образование", "СОШ"],
+    "rating": 4.8,
+    "price_level": 2,
+    "verified": false,
+    "source": "manual",
+    "updated_at": "2026-02-05"
   }
 ]
