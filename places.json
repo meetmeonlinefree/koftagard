@@ -37,7 +37,7 @@
     "address": "Худжанд, Универмаг",
     "geo": { "lat": 40.2822, "lng": 69.6211 },
     "cover": "https://avatars.mds.yandex.net/get-altay/16609617/2a0000019b42afa29b962a11d6a146d95231/L_height",
-    "images": ["https://avatars.mds.yandex.net/get-altay/16609617/2a0000019b42afa29b962a11d6a146d95231/L_height"],
+    "images": ["https://avatars.mds.yandex.net/get-altay/16609617/2a0000019b42afa29b962a11d6a146d95231/L_height", "https://avatars.mds.yandex.net/get-altay/16609617/2a0000019b42afa29b962a11d6a146d95231/L_height"],
     "contacts": { "phone": "+992901111111", "whatsapp": "+992901111111", "website": "" },
     "hours": {
       "mon": "10:00-23:00",
