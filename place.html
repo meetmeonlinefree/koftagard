@@ -533,89 +533,42 @@
           .openPopup();
 
         // Переменные для управления маршрутом
-        let routeControl = null;
+        let routePolyline = null;
         let selectedPoint = null;
+        let selectedPointMarker = null;
         let userLocation = null;
         let selectPointMode = false;
+        let mapClickListener = null;
 
         // Функция для построения маршрута
         function buildRoute() {
           const routeType = document.querySelector('.route-option.active').dataset.routeType;
+          const startPoint = routeType === 'current' ? userLocation : selectedPoint;
+          const endPoint = [p.geo.lat, p.geo.lng];
+          
+          // Проверяем, выбрана ли начальная точка
+          if (!startPoint) {
+            if (routeType === 'current') {
+              document.getElementById('routeInstructions').innerHTML = 
+                '<span style="color: #ff6b6b;">Не удалось определить ваше местоположение. Проверьте разрешения или выберите точку на карте.</span>';
+            } else {
+              document.getElementById('routeInstructions').innerHTML = 
+                '<span style="color: #ff6b6b;">Сначала выберите точку на карте.</span>';
+            }
+            return;
+          }
           
           // Очищаем предыдущий маршрут
-          if (routeControl) {
-            map.removeControl(routeControl);
-            routeControl = null;
+          if (routePolyline) {
+            map.removeLayer(routePolyline);
+            routePolyline = null;
           }
           
-          document.getElementById('routeInstructions').innerHTML = '';
+          document.getElementById('routeInstructions').innerHTML = 
+            '<span style="color: #4CAF50;">Строим маршрут...</span>';
           
-          if (routeType === 'current') {
-            // Используем текущее местоположение пользователя
-            if (!userLocation) {
-              if (navigator.geolocation) {
-                document.getElementById('routeInstructions').innerHTML = 
-                  '<span style="color: #4CAF50;">Определяем ваше местоположение...</span>';
-                
-                navigator.geolocation.getCurrentPosition(
-                  (position) => {
-                    userLocation = [position.coords.latitude, position.coords.longitude];
-                    showRoute(userLocation, [p.geo.lat, p.geo.lng]);
-                  },
-                  () => {
-                    document.getElementById('routeInstructions').innerHTML = 
-                      '<span style="color: #ff6b6b;">Не удалось получить ваше местоположение. Проверьте разрешения.</span>';
-                  }
-                );
-              } else {
-                document.getElementById('routeInstructions').innerHTML = 
-                  '<span style="color: #ff6b6b;">Ваш браузер не поддерживает геолокацию.</span>';
-              }
-            } else {
-              showRoute(userLocation, [p.geo.lat, p.geo.lng]);
-            }
-          } else if (routeType === 'select') {
-            // Режим выбора точки на карте
-            selectPointMode = true;
-            document.getElementById('routeInstructions').innerHTML = 
-              '<span style="color: #4CAF50;">Кликните на карте, чтобы выбрать точку начала маршрута.</span>';
-            
-            // Обработчик клика по карте для выбора точки
-            function onMapClick(e) {
-              if (!selectPointMode) return;
-              
-              selectedPoint = [e.latlng.lat, e.latlng.lng];
-              
-              // Удаляем предыдущий маркер выбранной точки
-              map.eachLayer((layer) => {
-                if (layer._icon && layer._icon.classList && 
-                    layer._icon.classList.contains('selected-point-marker')) {
-                  map.removeLayer(layer);
-                }
-              });
-              
-              // Добавляем маркер выбранной точки
-              L.marker(e.latlng, {
-                icon: L.divIcon({
-                  className: 'selected-point-marker',
-                  html: '<div style="background: #2196F3; width: 12px; height: 12px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 10px rgba(0,0,0,0.5);"></div>',
-                  iconSize: [16, 16],
-                  iconAnchor: [8, 8]
-                })
-              }).addTo(map).bindPopup('Точка начала маршрута').openPopup();
-              
-              document.getElementById('routeInstructions').innerHTML = 
-                `<span style="color: #2196F3;">Выбрана точка: ${e.latlng.lat.toFixed(5)}, ${e.latlng.lng.toFixed(5)}</span>`;
-            }
-            
-            map.on('click', onMapClick);
-          }
-        }
-
-        // Функция для отображения маршрута
-        function showRoute(start, end) {
           // Используем OSRM API для построения маршрута
-          const url = `https://router.project-osrm.org/route/v1/driving/${start[1]},${start[0]};${end[1]},${end[0]}?overview=full&geometries=geojson`;
+          const url = `https://router.project-osrm.org/route/v1/driving/${startPoint[1]},${startPoint[0]};${endPoint[1]},${endPoint[0]}?overview=full&geometries=geojson&steps=true`;
           
           fetch(url)
             .then(response => response.json())
@@ -624,7 +577,7 @@
                 const route = data.routes[0];
                 
                 // Отображаем маршрут на карте зеленым цветом
-                const routeLine = L.geoJSON(route.geometry, {
+                routePolyline = L.geoJSON(route.geometry, {
                   style: {
                     color: '#4CAF50',
                     weight: 5,
@@ -632,8 +585,8 @@
                   }
                 }).addTo(map);
                 
-                // Добавляем маркеры начала и конца
-                L.marker(start, {
+                // Добавляем маркер начала маршрута
+                L.marker(startPoint, {
                   icon: L.divIcon({
                     className: 'start-marker',
                     html: '<div style="background: #4CAF50; width: 14px; height: 14px; border-radius: 50%; border: 3px solid white; box-shadow: 0 0 10px rgba(0,0,0,0.5);"></div>',
@@ -648,47 +601,124 @@
                     <div><b>Маршрут построен!</b></div>
                     <div>Расстояние: ${(route.distance / 1000).toFixed(1)} км</div>
                     <div>Время в пути: ${Math.round(route.duration / 60)} мин</div>
+                    <div style="font-size: 12px; margin-top: 5px; color: var(--muted2);">
+                      ${routeType === 'current' ? 'От вашего местоположения' : 'От выбранной точки'}
+                    </div>
                   </div>
                 `;
                 
                 // Фит карты под маршрут
-                map.fitBounds(routeLine.getBounds());
+                map.fitBounds(routePolyline.getBounds(), { padding: [50, 50] });
+              } else {
+                document.getElementById('routeInstructions').innerHTML = 
+                  '<span style="color: #ff6b6b;">Не удалось построить маршрут. Попробуйте другую точку.</span>';
               }
             })
             .catch(error => {
               console.error('Ошибка построения маршрута:', error);
               document.getElementById('routeInstructions').innerHTML = 
-                '<span style="color: #ff6b6b;">Не удалось построить маршрут. Попробуйте позже.</span>';
+                '<span style="color: #ff6b6b;">Не удалось построить маршрут. Проверьте подключение к интернету.</span>';
             });
+        }
+
+        // Функция для выбора точки на карте
+        function setupPointSelection() {
+          selectPointMode = true;
+          document.getElementById('routeInstructions').innerHTML = 
+            '<span style="color: #4CAF50;">Кликните на карте, чтобы выбрать точку начала маршрута.</span>';
+          
+          // Удаляем предыдущий обработчик, если был
+          if (mapClickListener) {
+            map.off('click', mapClickListener);
+          }
+          
+          // Создаем новый обработчик клика
+          mapClickListener = function(e) {
+            selectedPoint = [e.latlng.lat, e.latlng.lng];
+            
+            // Удаляем предыдущий маркер выбранной точки
+            if (selectedPointMarker) {
+              map.removeLayer(selectedPointMarker);
+            }
+            
+            // Добавляем новый маркер выбранной точки
+            selectedPointMarker = L.marker(e.latlng, {
+              icon: L.divIcon({
+                className: 'selected-point-marker',
+                html: '<div style="background: #2196F3; width: 12px; height: 12px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 10px rgba(0,0,0,0.5);"></div>',
+                iconSize: [16, 16],
+                iconAnchor: [8, 8]
+              })
+            }).addTo(map).bindPopup('Точка начала маршрута<br>Нажмите "Построить маршрут"').openPopup();
+            
+            document.getElementById('routeInstructions').innerHTML = 
+              `<span style="color: #2196F3;">Выбрана точка: ${e.latlng.lat.toFixed(5)}, ${e.latlng.lng.toFixed(5)}<br>Нажмите "Построить маршрут"</span>`;
+          };
+          
+          map.on('click', mapClickListener);
+        }
+
+        // Функция для получения текущего местоположения
+        function setupCurrentLocation() {
+          selectPointMode = false;
+          
+          // Убираем обработчик клика по карте
+          if (mapClickListener) {
+            map.off('click', mapClickListener);
+            mapClickListener = null;
+          }
+          
+          // Удаляем маркер выбранной точки
+          if (selectedPointMarker) {
+            map.removeLayer(selectedPointMarker);
+            selectedPointMarker = null;
+          }
+          
+          if (!userLocation) {
+            document.getElementById('routeInstructions').innerHTML = 
+              '<span style="color: #4CAF50;">Определяем ваше местоположение... Нажмите "Построить маршрут".</span>';
+            
+            if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition(
+                (position) => {
+                  userLocation = [position.coords.latitude, position.coords.longitude];
+                  document.getElementById('routeInstructions').innerHTML = 
+                    `<span style="color: #4CAF50;">Ваше местоположение определено.<br>Нажмите "Построить маршрут"</span>`;
+                },
+                () => {
+                  document.getElementById('routeInstructions').innerHTML = 
+                    '<span style="color: #ff6b6b;">Не удалось получить ваше местоположение. Проверьте разрешения.</span>';
+                }
+              );
+            } else {
+              document.getElementById('routeInstructions').innerHTML = 
+                '<span style="color: #ff6b6b;">Ваш браузер не поддерживает геолокацию.</span>';
+            }
+          } else {
+            document.getElementById('routeInstructions').innerHTML = 
+              '<span style="color: #4CAF50;">Используем сохраненное местоположение.<br>Нажмите "Построить маршрут"</span>';
+          }
         }
 
         // Обработчики кнопок
         document.getElementById('buildRouteBtn').addEventListener('click', buildRoute);
         
         document.getElementById('clearRouteBtn').addEventListener('click', () => {
-          if (routeControl) {
-            map.removeControl(routeControl);
-            routeControl = null;
+          // Очищаем маршрут
+          if (routePolyline) {
+            map.removeLayer(routePolyline);
+            routePolyline = null;
           }
           
-          // Удаляем маркеры выбранной точки
+          // Удаляем маркер начала маршрута (но не выбранной точки)
           map.eachLayer((layer) => {
             if (layer._icon && layer._icon.classList && 
-                (layer._icon.classList.contains('selected-point-marker') || 
-                 layer._icon.classList.contains('start-marker'))) {
-              map.removeLayer(layer);
-            }
-          });
-          
-          // Удаляем линии маршрутов
-          map.eachLayer((layer) => {
-            if (layer instanceof L.Polyline) {
+                layer._icon.classList.contains('start-marker')) {
               map.removeLayer(layer);
             }
           });
           
           document.getElementById('routeInstructions').innerHTML = '';
-          selectPointMode = false;
           
           // Возвращаем карту к исходному виду
           map.setView([p.geo.lat, p.geo.lng], 15);
@@ -702,12 +732,15 @@
             this.classList.add('active');
             
             if (this.dataset.routeType === 'select') {
-              selectPointMode = true;
+              setupPointSelection();
             } else {
-              selectPointMode = false;
+              setupCurrentLocation();
             }
           });
         });
+
+        // Инициализируем начальный режим (текущее местоположение)
+        setupCurrentLocation();
 
         // Сохраняем ссылку на карту для использования в других функциях
         window.currentMap = map;
