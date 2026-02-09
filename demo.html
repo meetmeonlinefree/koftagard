@@ -121,42 +121,103 @@
     .section h2{ margin:0 0 10px; font-size: 18px; }
     .sub{ margin: -6px 0 12px; color: var(--muted2); font-size: 13.5px; }
 
-    .cats{ display:grid; grid-template-columns: repeat(7, 1fr); gap:10px; }
-    @media (max-width: 980px){ .cats{ grid-template-columns: repeat(3, 1fr); } }
-    @media (max-width: 520px){ .cats{ grid-template-columns: repeat(2, 1fr); } }
-
-    .cat{
+    /* Круглые категории с горизонтальным скроллом */
+    .categories-scroll {
+      overflow-x: auto;
+      padding: 10px 0 20px;
+      margin: 0 -16px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--accent) rgba(76,175,80,.1);
+    }
+    
+    .categories-scroll::-webkit-scrollbar {
+      height: 6px;
+    }
+    
+    .categories-scroll::-webkit-scrollbar-track {
+      background: rgba(76,175,80,.1);
+      border-radius: 10px;
+    }
+    
+    .categories-scroll::-webkit-scrollbar-thumb {
+      background: var(--accent);
+      border-radius: 10px;
+    }
+    
+    .categories-container {
+      display: flex;
+      gap: 12px;
+      padding: 0 16px;
+      min-width: min-content;
+    }
+    
+    .cat-round {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 16px;
       border: 1px solid rgba(15, 23, 42, .12);
       background: #fff;
-      border-radius: 16px;
-      padding: 12px 12px;
-      cursor:pointer;
-      transition: transform .08s ease, box-shadow .15s ease, border-color .15s ease;
-      min-height: 54px;
-      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      min-width: 120px;
+      text-align: center;
+      flex-shrink: 0;
+      border: none;
     }
-    .cat:hover{
-      transform: translateY(-1px);
+    
+    .cat-round:hover {
+      transform: translateY(-2px);
       box-shadow: 0 10px 25px rgba(2,44,18,.08);
       border-color: rgba(76,175,80,.35);
     }
-    .cat.active{
-      border-color: rgba(76,175,80,.70);
+    
+    .cat-round.active {
       background: rgba(76,175,80,.10);
+      border: 1px solid rgba(76,175,80,.70);
     }
-    .badge{
-      width: 34px; height: 34px; border-radius: 12px;
+    
+    .cat-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
       background: rgba(76,175,80,.10);
-      display:grid; place-items:center;
+      display: grid;
+      place-items: center;
       border: 1px solid rgba(76,175,80,.20);
-      font-size: 16px;
+      font-size: 20px;
+      flex-shrink: 0;
     }
-    .cat .title{ font-weight: 800; }
-    .count{ color: var(--muted2); font-size: 12.5px; }
+    
+    .cat-title {
+      font-weight: 800;
+      font-size: 13px;
+      line-height: 1.2;
+    }
+    
+    .cat-count {
+      color: var(--muted2);
+      font-size: 11px;
+      background: rgba(15, 23, 42, .05);
+      padding: 2px 8px;
+      border-radius: 10px;
+    }
 
-    .grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-    @media (max-width: 980px){ .grid{ grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 580px){ .grid{ grid-template-columns: 1fr; } }
+    /* Сетка карточек - 2 в строке */
+    .grid-2cols {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+    
+    @media (max-width: 768px) {
+      .grid-2cols {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+    }
 
     .card{
       border: 1px solid rgba(15, 23, 42, .12);
@@ -382,13 +443,15 @@
     <section class="section">
       <h2>Категории</h2>
       <div class="sub">Нажмите на категорию — и результаты обновятся.</div>
-      <div class="cats" id="cats"></div>
+      <div class="categories-scroll">
+        <div class="categories-container" id="cats"></div>
+      </div>
     </section>
 
     <section class="section">
       <h2>Результаты</h2>
       <div class="sub">Фильтр по поиску/категории. Сортировка по рейтингу или "рядом".</div>
-      <div class="grid" id="results"></div>
+      <div class="grid-2cols" id="results"></div>
       <div id="empty" class="empty" style="display:none; margin-top:12px;">
         Ничего не найдено. Попробуйте другой запрос или категорию.
       </div>
@@ -397,13 +460,13 @@
     <section class="section">
       <h2>Популярное в Худжанде</h2>
       <div class="sub">Подборка по рейтингу.</div>
-      <div class="grid" id="popular"></div>
+      <div class="grid-2cols" id="popular"></div>
     </section>
 
     <section class="section">
       <h2>Рядом со мной</h2>
       <div class="sub">Нажмите "📍 Рядом со мной", чтобы показать ближайшие места.</div>
-      <div class="grid" id="near"></div>
+      <div class="grid-2cols" id="near"></div>
       <div id="nearHint" class="empty" style="display:none; margin-top:12px;">
         Нажмите "📍 Рядом со мной" и разрешите геолокацию.
       </div>
@@ -463,15 +526,6 @@
   <script>
     const CATEGORIES_URL = "./categories.json";
     const PLACES_URL = "./places.json";
-
-    const state = {
-      categories: [],
-      places: [],
-      selectedCategory: "",
-      query: "",
-      sort: "popular",
-      userPos: null
-    };
 
     const $ = (id) => document.getElementById(id);
 
@@ -604,45 +658,63 @@
     }
 
     function renderCategories(){
-      const catsEl = $("cats");
-      catsEl.innerHTML = "";
+      const catsContainer = document.querySelector('.categories-container');
+      if (!catsContainer) return;
+      
+      catsContainer.innerHTML = "";
 
       const counts = state.places.reduce((acc,p)=>{
         acc[p.category] = (acc[p.category]||0) + 1;
         return acc;
       }, {});
 
+      // Добавляем кнопку "Все категории"
+      const allButton = document.createElement("button");
+      allButton.type = "button";
+      allButton.className = "cat-round" + (state.selectedCategory === "" ? " active" : "");
+      allButton.innerHTML = `
+        <div class="cat-icon">📍</div>
+        <div>
+          <div class="cat-title">Все</div>
+          <div class="cat-count">${state.places.length}</div>
+        </div>
+      `;
+      allButton.addEventListener("click", () => {
+        state.selectedCategory = "";
+        if ($("catSelect")) $("catSelect").value = "";
+        renderAll();
+      });
+      catsContainer.appendChild(allButton);
+
+      // Добавляем остальные категории
       for(const c of state.categories){
         const isActive = state.selectedCategory === c.id;
         const icon = c.icon || "📍";
 
         const el = document.createElement("button");
         el.type = "button";
-        el.className = "cat" + (isActive ? " active" : "");
+        el.className = "cat-round" + (isActive ? " active" : "");
         el.innerHTML = `
-          <div style="display:flex; align-items:center; gap:10px">
-            <div class="badge">${esc(icon)}</div>
-            <div>
-              <div class="title">${esc(c.title)}</div>
-              <div class="count">${(counts[c.id]||0)} мест</div>
-            </div>
+          <div class="cat-icon">${esc(icon)}</div>
+          <div>
+            <div class="cat-title">${esc(c.title)}</div>
+            <div class="cat-count">${(counts[c.id]||0)}</div>
           </div>
-          <div style="color:rgba(15,23,42,.45); font-weight:900">›</div>
         `;
         el.addEventListener("click", ()=>{
           state.selectedCategory = (state.selectedCategory === c.id) ? "" : c.id;
-          $("catSelect").value = state.selectedCategory;
+          if ($("catSelect")) $("catSelect").value = state.selectedCategory;
           renderAll();
         });
 
-        catsEl.appendChild(el);
+        catsContainer.appendChild(el);
       }
     }
 
     function renderResults(){
       const results = applyFilters();
       $("status").textContent = `Найдено: ${results.length}`;
-      $("results").innerHTML = results.slice(0, 9).map(cardHTML).join("");
+      $("results").innerHTML = results.slice(0, 8).map(cardHTML).join("");
       $("empty").style.display = results.length ? "none" : "block";
     }
 
@@ -650,7 +722,7 @@
       const list = [...state.places]
         .filter(p => (p.city||"").toLowerCase() === "khujand")
         .sort((a,b)=> (b.rating||0) - (a.rating||0))
-        .slice(0, 6);
+        .slice(0, 4);
       $("popular").innerHTML = list.map(cardHTML).join("") || `<div class="empty">Нет данных.</div>`;
     }
 
@@ -668,7 +740,7 @@
         .filter(p => Number.isFinite(p.geo.lat) && Number.isFinite(p.geo.lng))
         .map(p => ({ p, d: kmFromTo(state.userPos.lat, state.userPos.lng, p.geo.lat, p.geo.lng) }))
         .sort((a,b)=> a.d - b.d)
-        .slice(0, 6)
+        .slice(0, 4)
         .map(x => x.p);
 
       $("near").innerHTML = list.map(cardHTML).join("") || `<div class="empty">Пока нет мест с координатами.</div>`;
@@ -697,10 +769,13 @@
         state.categories = Array.isArray(cats) ? cats : [];
         state.places = (Array.isArray(places) ? places : []).map(normalizePlace);
 
-        const sel = $("catSelect");
-        sel.innerHTML = `<option value="">Все категории</option>` + state.categories
-          .map(c => `<option value="${esc(c.id)}">${esc(c.title)}</option>`)
-          .join("");
+        // Если есть select для категорий, заполняем его
+        if ($("catSelect")) {
+          const sel = $("catSelect");
+          sel.innerHTML = `<option value="">Все категории</option>` + state.categories
+            .map(c => `<option value="${esc(c.id)}">${esc(c.title)}</option>`)
+            .join("");
+        }
 
         $("status").textContent = `Загружено мест: ${state.places.length}`;
         renderAll();
@@ -710,9 +785,18 @@
       }
     }
 
-    $("q").addEventListener("input", (e)=>{ state.query = e.target.value; renderResults(); });
-    $("catSelect").addEventListener("change", (e)=>{ state.selectedCategory = e.target.value; renderAll(); });
-    $("sort").addEventListener("change", (e)=>{ state.sort = e.target.value; renderResults(); renderNear(); });
+    // Проверяем наличие элементов перед добавлением обработчиков
+    if ($("q")) {
+      $("q").addEventListener("input", (e)=>{ state.query = e.target.value; renderResults(); });
+    }
+    
+    if ($("catSelect")) {
+      $("catSelect").addEventListener("change", (e)=>{ state.selectedCategory = e.target.value; renderAll(); });
+    }
+    
+    if ($("sort")) {
+      $("sort").addEventListener("change", (e)=>{ state.sort = e.target.value; renderResults(); renderNear(); });
+    }
 
     $("btnLocate").addEventListener("click", ()=>{
       if(!navigator.geolocation){
