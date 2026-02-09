@@ -3,15 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>KoftaGard — Место</title>
-  
-  <!-- Подключаем библиотеку Leaflet для OpenStreetMap -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-   integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-   crossorigin=""/>
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-   integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-   crossorigin=""></script>
+  <title>KoftaGard — Справочник Худжанда</title>
 
   <style>
     :root{
@@ -21,8 +13,8 @@
       --text: #0f172a;
       --muted: rgba(15, 23, 42, .70);
       --muted2: rgba(15, 23, 42, .55);
-      --accent: #4CAF50;
-      --accent2:#3f9f44;
+      --accent: #4CAF50;   /* ваш цвет */
+      --accent2:#3f9f44;   /* чуть темнее */
       --shadow: 0 18px 50px rgba(2, 44, 18, .10);
       --radius: 18px;
     }
@@ -37,10 +29,9 @@
       color: var(--text);
       min-height:100vh;
     }
+    .wrap{ max-width: 1120px; margin:0 auto; padding: 20px 16px 48px; }
     a{ color: inherit; text-decoration:none; }
-    .wrap{ max-width: 980px; margin:0 auto; padding: 20px 16px 48px; }
 
-    /* top bar */
     .topbar{
       display:flex; align-items:center; justify-content:space-between;
       gap:12px; padding: 8px 0 18px;
@@ -55,9 +46,14 @@
       display:grid; place-items:center;
       flex: 0 0 auto;
     }
-    .logo img{ width:100%; height:100%; object-fit:cover; display:block; }
+    .logo img{
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display:block;
+    }
     .brand small{ display:block; color: var(--muted2); font-weight: 650; margin-top:2px; }
 
+    .actions{ display:flex; gap:10px; flex-wrap:wrap; }
     .btn{
       display:inline-flex; align-items:center; gap:8px;
       border: 1px solid var(--border);
@@ -74,20 +70,151 @@
       box-shadow: 0 10px 25px rgba(2,44,18,.08);
       border-color: rgba(76,175,80,.35);
     }
-    .btn.primary{
-      background: rgba(76,175,80,.12);
-      border-color: rgba(76,175,80,.45);
+
+    .hero{
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.86);
+      border-radius: calc(var(--radius) + 6px);
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+    .hero-inner{ display:grid; grid-template-columns: 1fr; gap:16px; }
+    .hero h1{
+      margin:0 0 8px;
+      font-size: clamp(24px, 3.2vw, 38px);
+      line-height: 1.15;
+      letter-spacing: -.4px;
+    }
+    .hero p{ margin:0 0 14px; color: var(--muted); font-size: 15.5px; line-height: 1.55; max-width: 68ch; }
+
+    .searchpanel{
+      border: 1px solid rgba(76,175,80,.22);
+      background: rgba(243,251,246,.78);
+      border-radius: 18px;
+      padding: 14px;
+      display:grid;
+      gap:10px;
+    }
+    .fieldrow{ display:grid; grid-template-columns: 1fr 220px 180px; gap:10px; }
+    @media (max-width: 880px){ .fieldrow{ grid-template-columns: 1fr; } }
+
+    input, select{
+      width:100%;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(15, 23, 42, .12);
+      background: #fff;
+      color: var(--text);
+      outline:none;
+      font-size: 15px;
+    }
+    input:focus, select:focus{
+      border-color: rgba(76,175,80,.75);
+      box-shadow: 0 0 0 4px rgba(76,175,80,.14);
+    }
+    .hint{
+      display:flex; gap:10px; align-items:center; justify-content:space-between; flex-wrap:wrap;
+      color: var(--muted2); font-size: 13px;
     }
 
-    /* layout */
-    .grid{
-      display:grid;
-      grid-template-columns: 1.25fr .75fr;
-      gap: 14px;
-      align-items:start;
+    .section{ margin-top: 22px; }
+    .section h2{ margin:0 0 10px; font-size: 18px; }
+    .sub{ margin: -6px 0 12px; color: var(--muted2); font-size: 13.5px; }
+
+    /* Круглые категории с горизонтальным скроллом */
+    .categories-scroll {
+      overflow-x: auto;
+      padding: 10px 0 20px;
+      margin: 0 -16px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--accent) rgba(76,175,80,.1);
     }
-    @media (max-width: 900px){
-      .grid{ grid-template-columns: 1fr; }
+    
+    .categories-scroll::-webkit-scrollbar {
+      height: 6px;
+    }
+    
+    .categories-scroll::-webkit-scrollbar-track {
+      background: rgba(76,175,80,.1);
+      border-radius: 10px;
+    }
+    
+    .categories-scroll::-webkit-scrollbar-thumb {
+      background: var(--accent);
+      border-radius: 10px;
+    }
+    
+    .categories-container {
+      display: flex;
+      gap: 12px;
+      padding: 0 16px;
+      min-width: min-content;
+    }
+    
+    .cat-round {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 16px;
+      border: 1px solid rgba(15, 23, 42, .12);
+      background: #fff;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      min-width: 120px;
+      text-align: center;
+    }
+    
+    .cat-round:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(2,44,18,.08);
+      border-color: rgba(76,175,80,.35);
+    }
+    
+    .cat-round.active {
+      border-color: rgba(76,175,80,.70);
+      background: rgba(76,175,80,.10);
+    }
+    
+    .cat-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(76,175,80,.10);
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(76,175,80,.20);
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+    
+    .cat-title {
+      font-weight: 800;
+      font-size: 13px;
+      line-height: 1.2;
+    }
+    
+    .cat-count {
+      color: var(--muted2);
+      font-size: 11px;
+      background: rgba(15, 23, 42, .05);
+      padding: 2px 8px;
+      border-radius: 10px;
+    }
+
+    /* Сетка карточек - 2 в строке */
+    .grid-2cols {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+    
+    @media (max-width: 768px) {
+      .grid-2cols {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
     }
 
     .card{
@@ -95,204 +222,51 @@
       background: #fff;
       border-radius: var(--radius);
       overflow:hidden;
-      box-shadow: var(--shadow);
+      transition: transform .08s ease, box-shadow .15s ease, border-color .15s ease;
     }
-    .content{ padding: 14px; }
 
-    .title{
-      margin: 0 0 6px;
-      font-weight: 900;
-      letter-spacing: -.2px;
-      font-size: clamp(20px, 2.5vw, 30px);
-      line-height: 1.15;
+    .card a { color: inherit; }
+    .card a:focus { outline: none; }
+    .card a:focus-visible {
+      box-shadow: 0 0 0 4px rgba(76,175,80,.18);
+      border-radius: var(--radius);
     }
-    .meta{
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.5;
-      margin: 0 0 12px;
-    }
-    .pillrow{
-      display:flex; flex-wrap:wrap; gap:8px;
-      margin: 10px 0 12px;
-    }
-    .pill{
-      padding: 7px 10px;
-      border-radius: 999px;
-      font-size: 12.5px;
-      font-weight: 800;
-      border: 1px solid rgba(15, 23, 42, .12);
-      background: rgba(243,251,246,.9);
-    }
-    .pill.green{
+
+    .card:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 18px 45px rgba(2,44,18,.10);
       border-color: rgba(76,175,80,.35);
-      background: rgba(76,175,80,.10);
     }
-
-    .actions{
-      display:flex; flex-wrap:wrap; gap:8px;
-      margin-top: 10px;
-    }
-    .action{
-      padding: 10px 12px;
-      border-radius: 14px;
+    .thumb{ aspect-ratio: 16/9; background: rgba(15, 23, 42, .04); position:relative; }
+    .thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
+    .thumb .pill{
+      position:absolute; left:12px; top:12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+      background: rgba(255,255,255,.90);
       border: 1px solid rgba(15, 23, 42, .12);
-      background: rgba(243,251,246,.85);
-      font-weight: 850;
-      font-size: 13.5px;
-      display:inline-flex;
-      gap:8px;
-      align-items:center;
+      backdrop-filter: blur(8px);
     }
-    .action:hover{
-      border-color: rgba(76,175,80,.40);
-      background: rgba(76,175,80,.10);
-    }
+    .content{ padding: 12px 12px 14px; }
+    .name{ margin:0 0 6px; font-weight: 850; font-size: 16px; }
+    .meta{ margin:0 0 10px; color: var(--muted); font-size: 13.5px; line-height: 1.45; }
+    .row{ display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom: 10px; color: var(--muted2); font-size: 13px; }
+    .stars{ font-weight: 800; }
 
-    /* ГАЛЕРЕЯ-СЛАЙДЕР */
-    .gallery-container {
-      position: relative;
-      width: 100%;
-      overflow: hidden;
-      border-radius: 16px;
-      background: rgba(15, 23, 42, .04);
-      border: 1px solid rgba(15, 23, 42, .10);
-    }
-    .slider-wrapper {
-      display: flex;
-      transition: transform 0.3s ease;
-      height: 300px;
-    }
-    .slide {
-      min-width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .slide img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .slider-btn {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(255, 255, 255, 0.9);
-      border: 1px solid rgba(15, 23, 42, .12);
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      z-index: 10;
-      font-weight: bold;
-      font-size: 18px;
-      transition: all 0.2s;
-    }
-    .slider-btn:hover {
-      background: white;
-      border-color: rgba(76,175,80,.40);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-    .slider-btn.prev {
-      left: 10px;
-    }
-    .slider-btn.next {
-      right: 10px;
-    }
-    .slider-dots {
-      position: absolute;
-      bottom: 15px;
-      left: 0;
-      right: 0;
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      z-index: 10;
-    }
-    .dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.6);
-      border: 1px solid rgba(15, 23, 42, .20);
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .dot.active {
-      background: var(--accent);
-      border-color: var(--accent2);
-      transform: scale(1.2);
-    }
-
-    /* Секция карты */
-    .map-section {
-      margin-top: 20px;
-    }
-    .map-container {
-      height: 300px;
-      border-radius: 16px;
-      overflow: hidden;
-      border: 1px solid rgba(15, 23, 42, .12);
-      margin-top: 10px;
-    }
-    #map {
-      width: 100%;
-      height: 100%;
-    }
-    .route-controls {
-      display: flex;
-      gap: 10px;
-      margin-top: 10px;
-      flex-wrap: wrap;
-    }
-    .route-option {
-      padding: 8px 12px;
+    .card .btns{ display:flex; gap:8px; flex-wrap:wrap; }
+    .card .btns a{
+      padding: 9px 10px;
       border-radius: 12px;
       border: 1px solid rgba(15, 23, 42, .12);
       background: rgba(243,251,246,.85);
-      font-weight: 650;
-      cursor: pointer;
-      transition: all 0.2s;
+      font-weight: 800;
+      font-size: 13px;
     }
-    .route-option:hover {
+    .card .btns a:hover{
       border-color: rgba(76,175,80,.40);
       background: rgba(76,175,80,.10);
-    }
-    .route-option.active {
-      background: rgba(76,175,80,.12);
-      border-color: rgba(76,175,80,.45);
-    }
-
-    /* side card */
-    .side h3{
-      margin: 0 0 10px;
-      font-size: 15px;
-      font-weight: 900;
-    }
-    .kv{
-      display:grid;
-      gap:8px;
-      color: var(--muted);
-      font-size: 13.5px;
-      line-height: 1.45;
-    }
-    .kv b{ color: var(--text); }
-    .tags{
-      display:flex; flex-wrap:wrap; gap:8px; margin-top: 10px;
-    }
-    .tag{
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(15, 23, 42, .12);
-      background: rgba(255,255,255,.9);
-      font-weight: 800;
-      font-size: 12px;
-      color: rgba(15, 23, 42, .72);
     }
 
     .empty{
@@ -303,42 +277,115 @@
       background: rgba(255,255,255,.75);
     }
 
-    /* modal для увеличенных фото */
-    .modal{
-      position:fixed; inset:0;
-      background: rgba(2, 6, 23, .55);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding: 18px;
-      z-index: 50;
+    footer{
+      margin-top: 46px;
+      padding-top: 28px;
+      border-top: 1px solid rgba(15, 23, 42, .12);
+      color: var(--muted2);
+      font-size: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
     }
-    .modal.open{ display:flex; }
-    .modalbox{
-      max-width: 980px;
-      width: 100%;
-      border-radius: 18px;
-      overflow:hidden;
-      background:#fff;
+    
+    .footer-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    
+    .footer-logo {
+      width: 30px;
+      height: 30px;
+      border-radius: 10px;
+      overflow: hidden;
       border: 1px solid rgba(15, 23, 42, .12);
-      box-shadow: 0 18px 60px rgba(0,0,0,.25);
     }
-    .modalimg{
-      width:100%;
-      max-height: 75vh;
-      object-fit: contain;
-      display:block;
-      background: #fff;
+    
+    .footer-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
-    .modalbar{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap: 10px;
-      padding: 10px 12px;
-      border-top: 1px solid rgba(15, 23, 42, .10);
-      color: var(--muted);
-      font-size: 13px;
+    
+    .footer-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    
+    .social-links {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(15, 23, 42, .12);
+      background: rgba(255, 255, 255, .7);
+      font-weight: 650;
+      font-size: 13.5px;
+      transition: all 0.2s ease;
+    }
+    
+    .social-link:hover {
+      border-color: rgba(76, 175, 80, .4);
+      background: rgba(76, 175, 80, .08);
+      transform: translateY(-1px);
+    }
+    
+    .app-download {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: white;
+      font-weight: 700;
+      font-size: 13.5px;
+      transition: all 0.2s ease;
+    }
+    
+    .app-download:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 25px rgba(76, 175, 80, .3);
+    }
+    
+    .social-icon, .app-icon {
+      width: 18px;
+      height: 18px;
+      opacity: 0.9;
+    }
+    
+    @media (max-width: 768px) {
+      footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+      }
+      
+      .footer-links {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+      }
+      
+      .social-links {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
     }
   </style>
 </head>
@@ -359,28 +406,135 @@
         </div>
       </div>
 
-      <div style="display:flex; gap:10px; flex-wrap:wrap">
-        <a class="btn" href="./demo.html">← Назад</a>
-        <button class="btn primary" id="btnCopyLink" type="button">🔗 Скопировать ссылку</button>
+      <div class="actions">
+        <button class="btn" id="btnLocate" type="button">📍 Рядом со мной</button>
       </div>
     </div>
 
-    <div id="page"></div>
-  </div>
+    <section class="hero">
+      <div class="hero-inner">
+        <div>
+          <h1>Найдите нужное место в Худжанде — быстро</h1>
+          <p>Поиск по категориям и рядом с вами: еда, салоны, аптеки, магазины, ремонт и услуги.</p>
 
-  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Просмотр изображения">
-    <div class="modalbox">
-      <img id="modalImg" class="modalimg" alt="Изображение" />
-      <div class="modalbar">
-        <span id="modalCaption">Фото</span>
-        <button class="btn" id="modalClose" type="button">Закрыть ✕</button>
+          <div class="searchpanel">
+            <div class="fieldrow">
+              <input id="q" placeholder="Например: кофе, аптека, шиномонтаж…" />
+              <select id="catSelect">
+                <option value="">Все категории</option>
+              </select>
+              <select id="sort">
+                <option value="popular">Сортировка: популярные</option>
+                <option value="rating">Сортировка: рейтинг</option>
+                <option value="near">Сортировка: рядом</option>
+              </select>
+            </div>
+            <div class="hint">
+              <span id="status">Загрузка…</span>
+              <span id="geoStatus">Геолокация: не определена</span>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
+
+    <!-- Убрал блок с приложением -->
+
+    <section class="section">
+      <h2>Категории</h2>
+      <div class="sub">Нажмите на категорию — и результаты обновятся.</div>
+      <div class="categories-scroll">
+        <div class="categories-container" id="cats"></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Результаты</h2>
+      <div class="sub">Фильтр по поиску/категории. Сортировка по рейтингу или "рядом".</div>
+      <div class="grid-2cols" id="results"></div>
+      <div id="empty" class="empty" style="display:none; margin-top:12px;">
+        Ничего не найдено. Попробуйте другой запрос или категорию.
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Популярное в Худжанде</h2>
+      <div class="sub">Подборка по рейтингу.</div>
+      <div class="grid-2cols" id="popular"></div>
+    </section>
+
+    <section class="section">
+      <h2>Рядом со мной</h2>
+      <div class="sub">Нажмите "📍 Рядом со мной", чтобы показать ближайшие места.</div>
+      <div class="grid-2cols" id="near"></div>
+      <div id="nearHint" class="empty" style="display:none; margin-top:12px;">
+        Нажмите "📍 Рядом со мной" и разрешите геолокацию.
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-left">
+        <div class="footer-logo">
+          <img
+            src="https://play-lh.googleusercontent.com/hz0iJ1uOy2Qla1j20KA0fOg5yMwvuD2atqnD2OYVsHeYPmoL99J399NdZGlFgmhXcpKvlVrQd_CMQd5Yo13N=w240-h480-rw"
+            alt="KoftaGard"
+            loading="lazy"
+          />
+        </div>
+        <div>
+          <div style="font-weight: 700; color: var(--text);">KoftaGard</div>
+          <div style="font-size: 13px; margin-top: 2px;">Справочник Худжанда • © 2026</div>
+        </div>
+      </div>
+      
+      <div class="footer-links">
+        <div class="social-links">
+          <a href="https://www.instagram.com/koftagard.tj/" 
+             target="_blank" 
+             rel="noopener"
+             class="social-link">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/1024px-Instagram_icon.png" 
+                 alt="Instagram" 
+                 class="social-icon">
+            Instagram
+          </a>
+          
+          <a href="https://t.me/connect4_pro" 
+             target="_blank" 
+             rel="noopener"
+             class="social-link">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/1024px-Telegram_logo.svg.png" 
+                 alt="Telegram" 
+                 class="social-icon">
+            Telegram
+          </a>
+        </div>
+        
+        <a href="https://play.google.com/store/apps/details?id=com.neuronit.koftagard" 
+           target="_blank" 
+           rel="noopener"
+           class="app-download">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Google_Play_Store_badge_EN.svg/1024px-Google_Play_Store_badge_EN.svg.png" 
+               alt="Google Play" 
+               class="app-icon">
+          Приложение
+        </a>
+      </div>
+    </footer>
   </div>
 
   <script>
     const CATEGORIES_URL = "./categories.json";
     const PLACES_URL = "./places.json";
+
+    const state = {
+      categories: [],
+      places: [],
+      selectedCategory: "",
+      query: "",
+      sort: "popular",
+      userPos: null
+    };
 
     const $ = (id) => document.getElementById(id);
 
@@ -390,9 +544,15 @@
       }[m]));
     }
 
-    function getParam(name){
-      const url = new URL(window.location.href);
-      return url.searchParams.get(name);
+    function kmFromTo(lat1, lon1, lat2, lon2){
+      const R = 6371;
+      const toRad = (d) => d * Math.PI / 180;
+      const dLat = toRad(lat2 - lat1);
+      const dLon = toRad(lon2 - lon1);
+      const a = Math.sin(dLat/2)**2 +
+                Math.cos(toRad(lat1))*Math.cos(toRad(lat2))*
+                Math.sin(dLon/2)**2;
+      return 2 * R * Math.asin(Math.sqrt(a));
     }
 
     function normalizePlace(p){
@@ -407,20 +567,197 @@
           lng: Number(p.geo?.lng ?? p.lng ?? NaN)
         },
         cover: p.cover || "",
-        images: Array.isArray(p.images) ? p.images : [],
         contacts: {
           phone: p.contacts?.phone || p.phone || "",
-          whatsapp: p.contacts?.whatsapp || "",
-          website: p.contacts?.website || p.website || ""
+          website: p.contacts?.website || ""
         },
-        hours: p.hours || {},
         tags: Array.isArray(p.tags) ? p.tags : [],
         rating: Number.isFinite(+p.rating) ? +p.rating : null,
-        price_level: Number.isFinite(+p.price_level) ? +p.price_level : null,
-        verified: !!p.verified,
-        source: p.source || "manual",
-        updated_at: p.updated_at || ""
+        price_level: Number.isFinite(+p.price_level) ? +p.price_level : null
       };
+    }
+
+    function getCategoryTitle(catId){
+      const c = state.categories.find(x => x.id === catId);
+      return c ? c.title : catId;
+    }
+
+    function placeHasQuery(p, q){
+      if(!q) return true;
+      const hay = (p.name + " " + (p.address||"") + " " + (p.tags||[]).join(" ")).toLowerCase();
+      return hay.includes(q.toLowerCase());
+    }
+
+    function cardHTML(p){
+      const catTitle = getCategoryTitle(p.category);
+      const phone = p.contacts.phone;
+      const hasGeo = Number.isFinite(p.geo.lat) && Number.isFinite(p.geo.lng);
+    
+      const dist = (state.userPos && hasGeo)
+        ? kmFromTo(state.userPos.lat, state.userPos.lng, p.geo.lat, p.geo.lng)
+        : null;
+    
+      const pill = dist != null ? `${catTitle} • ${dist.toFixed(1)} км` : catTitle;
+      const rating = (p.rating != null) ? `⭐ ${p.rating.toFixed(1)}` : "—";
+      const price = (p.price_level != null) ? "".repeat(Math.max(1, Math.min(4, p.price_level))) : "";
+    
+      const img = p.cover
+        ? `<img src="${esc(p.cover)}" alt="${esc(p.name)}" loading="lazy">`
+        : `<div style="width:100%;height:100%;display:grid;place-items:center;color:rgba(15,23,42,.55)">Нет фото</div>`;
+    
+      const mapsLink = hasGeo ? `https://www.google.com/maps?q=${p.geo.lat},${p.geo.lng}` : "";
+      const detailsLink = `./place.html?id=${encodeURIComponent(p.id)}`;
+    
+      return `
+        <article class="card" role="article">
+          <a href="${detailsLink}" style="display:block">
+            <div class="thumb">
+              ${img}
+              <div class="pill">${esc(pill)}</div>
+            </div>
+            <div class="content">
+              <h3 class="name">${esc(p.name)}</h3>
+              <p class="meta">${esc(p.address || "Адрес не указан")}</p>
+              <div class="row">
+                <div class="stars">${rating}</div>
+                <div>${price}</div>
+              </div>
+            </div>
+          </a>
+    
+          <div class="content" style="padding-top:0">
+            <div class="btns">
+              ${phone ? `<a href="tel:${esc(phone)}" onclick="event.stopPropagation()">📞 Позвонить</a>` : ""}
+              ${mapsLink ? `<a target="_blank" rel="noopener" href="${esc(mapsLink)}" onclick="event.stopPropagation()">🧭 Маршрут</a>` : ""}
+              ${p.contacts.website ? `<a target="_blank" rel="noopener" href="${esc(p.contacts.website)}" onclick="event.stopPropagation()">🌐 Сайт</a>` : ""}
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
+
+    function applyFilters(){
+      const q = state.query.trim();
+      const cat = state.selectedCategory;
+
+      let list = state.places.filter(p => {
+        const okCat = !cat || p.category === cat;
+        const okQ = placeHasQuery(p, q);
+        const okCity = (p.city || "").toLowerCase() === "khujand";
+        return okCat && okQ && okCity;
+      });
+
+      if(state.sort === "rating"){
+        list.sort((a,b)=> (b.rating||0) - (a.rating||0));
+      } else if(state.sort === "near"){
+        list.sort((a,b)=>{
+          if(!state.userPos) return 0;
+          const da = (Number.isFinite(a.geo.lat) && Number.isFinite(a.geo.lng))
+            ? kmFromTo(state.userPos.lat, state.userPos.lng, a.geo.lat, a.geo.lng) : 1e9;
+          const db = (Number.isFinite(b.geo.lat) && Number.isFinite(b.geo.lng))
+            ? kmFromTo(state.userPos.lat, state.userPos.lng, b.geo.lat, b.geo.lng) : 1e9;
+          return da - db;
+        });
+      } else {
+        list.sort((a,b)=> (b.rating||0) - (a.rating||0));
+      }
+
+      return list;
+    }
+
+    function renderCategories(){
+      const catsEl = $("#cats");
+      catsEl.innerHTML = "";
+
+      const counts = state.places.reduce((acc,p)=>{
+        acc[p.category] = (acc[p.category]||0) + 1;
+        return acc;
+      }, {});
+
+      // Добавляем кнопку "Все категории"
+      const allButton = document.createElement("button");
+      allButton.type = "button";
+      allButton.className = "cat-round" + (state.selectedCategory === "" ? " active" : "");
+      allButton.innerHTML = `
+        <div class="cat-icon">📍</div>
+        <div>
+          <div class="cat-title">Все</div>
+          <div class="cat-count">${state.places.length}</div>
+        </div>
+      `;
+      allButton.addEventListener("click", () => {
+        state.selectedCategory = "";
+        $("#catSelect").value = "";
+        renderAll();
+      });
+      catsEl.appendChild(allButton);
+
+      // Добавляем остальные категории
+      for(const c of state.categories){
+        const isActive = state.selectedCategory === c.id;
+        const icon = c.icon || "📍";
+
+        const el = document.createElement("button");
+        el.type = "button";
+        el.className = "cat-round" + (isActive ? " active" : "");
+        el.innerHTML = `
+          <div class="cat-icon">${esc(icon)}</div>
+          <div>
+            <div class="cat-title">${esc(c.title)}</div>
+            <div class="cat-count">${(counts[c.id]||0)}</div>
+          </div>
+        `;
+        el.addEventListener("click", ()=>{
+          state.selectedCategory = (state.selectedCategory === c.id) ? "" : c.id;
+          $("#catSelect").value = state.selectedCategory;
+          renderAll();
+        });
+
+        catsEl.appendChild(el);
+      }
+    }
+
+    function renderResults(){
+      const results = applyFilters();
+      $("#status").textContent = `Найдено: ${results.length}`;
+      $("#results").innerHTML = results.slice(0, 8).map(cardHTML).join("");
+      $("#empty").style.display = results.length ? "none" : "block";
+    }
+
+    function renderPopular(){
+      const list = [...state.places]
+        .filter(p => (p.city||"").toLowerCase() === "khujand")
+        .sort((a,b)=> (b.rating||0) - (a.rating||0))
+        .slice(0, 4);
+      $("#popular").innerHTML = list.map(cardHTML).join("") || `<div class="empty">Нет данных.</div>`;
+    }
+
+    function renderNear(){
+      const nearHint = $("#nearHint");
+      if(!state.userPos){
+        $("#near").innerHTML = "";
+        nearHint.style.display = "block";
+        return;
+      }
+      nearHint.style.display = "none";
+
+      const list = state.places
+        .filter(p => (p.city||"").toLowerCase() === "khujand")
+        .filter(p => Number.isFinite(p.geo.lat) && Number.isFinite(p.geo.lng))
+        .map(p => ({ p, d: kmFromTo(state.userPos.lat, state.userPos.lng, p.geo.lat, p.geo.lng) }))
+        .sort((a,b)=> a.d - b.d)
+        .slice(0, 4)
+        .map(x => x.p);
+
+      $("#near").innerHTML = list.map(cardHTML).join("") || `<div class="empty">Пока нет мест с координатами.</div>`;
+    }
+
+    function renderAll(){
+      renderCategories();
+      renderResults();
+      renderPopular();
+      renderNear();
     }
 
     async function loadJSON(url){
@@ -429,521 +766,50 @@
       return r.json();
     }
 
-    function categoryTitle(categories, id){
-      return categories.find(c => c.id === id)?.title || id;
-    }
-
-    function formatHours(hours){
-      if(!hours || typeof hours !== "object") return "—";
-      const map = [
-        ["mon","Пн"],["tue","Вт"],["wed","Ср"],["thu","Чт"],["fri","Пт"],["sat","Сб"],["sun","Вс"]
-      ];
-      const lines = map.map(([k, label])=>{
-        const v = hours[k];
-        if(!v) return null;
-        return `${label}: ${v === "closed" ? "выходной" : v}`;
-      }).filter(Boolean);
-      return lines.length ? lines.join(" • ") : "—";
-    }
-
-    // Функция для создания галереи-слайдера
-    function buildGallerySlider(p) {
-      const imgs = [];
-      if(p.cover) imgs.push(p.cover);
-      for(const im of (p.images || [])) if(im && !imgs.includes(im)) imgs.push(im);
-
-      if (imgs.length === 0) {
-        return `<div class="gallery-container" style="height: 200px; display: flex; align-items: center; justify-content: center; color: rgba(15,23,42,.55);">
-                  Нет фото
-                </div>`;
-      }
-
-      let slidesHTML = '';
-      imgs.forEach((img, index) => {
-        slidesHTML += `
-          <div class="slide">
-            <img src="${esc(img)}" alt="${esc(p.name)} - фото ${index + 1}" loading="lazy">
-          </div>
-        `;
-      });
-
-      let dotsHTML = '';
-      imgs.forEach((_, index) => {
-        dotsHTML += `<div class="dot ${index === 0 ? 'active' : ''}" data-index="${index}"></div>`;
-      });
-
-      return `
-        <div class="gallery-container">
-          <div class="slider-wrapper" id="sliderWrapper">
-            ${slidesHTML}
-          </div>
-          ${imgs.length > 1 ? `
-            <button class="slider-btn prev">‹</button>
-            <button class="slider-btn next">›</button>
-            <div class="slider-dots">
-              ${dotsHTML}
-            </div>
-          ` : ''}
-        </div>
-      `;
-    }
-
-    // Инициализация карты OpenStreetMap
-    function initMap(p) {
-      const mapHTML = `
-        <div class="map-section">
-          <h3 style="margin:0 0 8px;">Местоположение</h3>
-          <div class="map-container">
-            <div id="map"></div>
-          </div>
-          <div class="route-controls">
-            <div class="route-option active" data-route-type="current">От моего местоположения</div>
-            <div class="route-option" data-route-type="select">Выбрать точку на карте</div>
-            <button class="btn primary" id="buildRouteBtn" style="margin-left: auto;">Построить маршрут</button>
-            <button class="btn" id="clearRouteBtn">Очистить маршрут</button>
-          </div>
-          <div id="routeInstructions" style="margin-top: 10px; font-size: 13px; color: var(--muted2);"></div>
-        </div>
-      `;
-
-      // Вставляем HTML карты
-      document.querySelector('.side .content').insertAdjacentHTML('beforeend', mapHTML);
-
-      // Инициализируем карту после добавления в DOM
-      setTimeout(() => {
-        const hasValidCoords = Number.isFinite(p.geo.lat) && Number.isFinite(p.geo.lng);
-        
-        if (!hasValidCoords) {
-          document.getElementById('map').innerHTML = 
-            '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--muted);">Координаты не указаны</div>';
-          return;
-        }
-
-        // Создаем карту
-        const map = L.map('map').setView([p.geo.lat, p.geo.lng], 15);
-        
-        // Добавляем слой OpenStreetMap
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
-
-        // Добавляем маркер для текущего места
-        const placeMarker = L.marker([p.geo.lat, p.geo.lng]).addTo(map)
-          .bindPopup(`<b>${esc(p.name)}</b><br>${esc(p.address || '')}`)
-          .openPopup();
-
-        // Переменные для управления маршрутом
-        let routePolyline = null;
-        let selectedPoint = null;
-        let selectedPointMarker = null;
-        let userLocation = null;
-        let selectPointMode = false;
-        let mapClickListener = null;
-
-        // Функция для построения маршрута
-        function buildRoute() {
-          const routeType = document.querySelector('.route-option.active').dataset.routeType;
-          const startPoint = routeType === 'current' ? userLocation : selectedPoint;
-          const endPoint = [p.geo.lat, p.geo.lng];
-          
-          // Проверяем, выбрана ли начальная точка
-          if (!startPoint) {
-            if (routeType === 'current') {
-              document.getElementById('routeInstructions').innerHTML = 
-                '<span style="color: #ff6b6b;">Не удалось определить ваше местоположение. Проверьте разрешения или выберите точку на карте.</span>';
-            } else {
-              document.getElementById('routeInstructions').innerHTML = 
-                '<span style="color: #ff6b6b;">Сначала выберите точку на карте.</span>';
-            }
-            return;
-          }
-          
-          // Очищаем предыдущий маршрут
-          if (routePolyline) {
-            map.removeLayer(routePolyline);
-            routePolyline = null;
-          }
-          
-          document.getElementById('routeInstructions').innerHTML = 
-            '<span style="color: #4CAF50;">Строим маршрут...</span>';
-          
-          // Используем OSRM API для построения маршрута
-          const url = `https://router.project-osrm.org/route/v1/driving/${startPoint[1]},${startPoint[0]};${endPoint[1]},${endPoint[0]}?overview=full&geometries=geojson&steps=true`;
-          
-          fetch(url)
-            .then(response => response.json())
-            .then(data => {
-              if (data.routes && data.routes.length > 0) {
-                const route = data.routes[0];
-                
-                // Отображаем маршрут на карте зеленым цветом
-                routePolyline = L.geoJSON(route.geometry, {
-                  style: {
-                    color: '#4CAF50',
-                    weight: 5,
-                    opacity: 0.7
-                  }
-                }).addTo(map);
-                
-                // Добавляем маркер начала маршрута
-                L.marker(startPoint, {
-                  icon: L.divIcon({
-                    className: 'start-marker',
-                    html: '<div style="background: #4CAF50; width: 14px; height: 14px; border-radius: 50%; border: 3px solid white; box-shadow: 0 0 10px rgba(0,0,0,0.5);"></div>',
-                    iconSize: [20, 20],
-                    iconAnchor: [10, 10]
-                  })
-                }).addTo(map).bindPopup('Начало маршрута');
-                
-                // Показываем информацию о маршруте
-                document.getElementById('routeInstructions').innerHTML = `
-                  <div style="background: rgba(76,175,80,0.1); padding: 10px; border-radius: 8px; border-left: 4px solid #4CAF50;">
-                    <div><b>Маршрут построен!</b></div>
-                    <div>Расстояние: ${(route.distance / 1000).toFixed(1)} км</div>
-                    <div>Время в пути: ${Math.round(route.duration / 60)} мин</div>
-                    <div style="font-size: 12px; margin-top: 5px; color: var(--muted2);">
-                      ${routeType === 'current' ? 'От вашего местоположения' : 'От выбранной точки'}
-                    </div>
-                  </div>
-                `;
-                
-                // Фит карты под маршрут
-                map.fitBounds(routePolyline.getBounds(), { padding: [50, 50] });
-              } else {
-                document.getElementById('routeInstructions').innerHTML = 
-                  '<span style="color: #ff6b6b;">Не удалось построить маршрут. Попробуйте другую точку.</span>';
-              }
-            })
-            .catch(error => {
-              console.error('Ошибка построения маршрута:', error);
-              document.getElementById('routeInstructions').innerHTML = 
-                '<span style="color: #ff6b6b;">Не удалось построить маршрут. Проверьте подключение к интернету.</span>';
-            });
-        }
-
-        // Функция для выбора точки на карте
-        function setupPointSelection() {
-          selectPointMode = true;
-          document.getElementById('routeInstructions').innerHTML = 
-            '<span style="color: #4CAF50;">Кликните на карте, чтобы выбрать точку начала маршрута.</span>';
-          
-          // Удаляем предыдущий обработчик, если был
-          if (mapClickListener) {
-            map.off('click', mapClickListener);
-          }
-          
-          // Создаем новый обработчик клика
-          mapClickListener = function(e) {
-            selectedPoint = [e.latlng.lat, e.latlng.lng];
-            
-            // Удаляем предыдущий маркер выбранной точки
-            if (selectedPointMarker) {
-              map.removeLayer(selectedPointMarker);
-            }
-            
-            // Добавляем новый маркер выбранной точки
-            selectedPointMarker = L.marker(e.latlng, {
-              icon: L.divIcon({
-                className: 'selected-point-marker',
-                html: '<div style="background: #2196F3; width: 12px; height: 12px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 10px rgba(0,0,0,0.5);"></div>',
-                iconSize: [16, 16],
-                iconAnchor: [8, 8]
-              })
-            }).addTo(map).bindPopup('Точка начала маршрута<br>Нажмите "Построить маршрут"').openPopup();
-            
-            document.getElementById('routeInstructions').innerHTML = 
-              `<span style="color: #2196F3;">Выбрана точка: ${e.latlng.lat.toFixed(5)}, ${e.latlng.lng.toFixed(5)}<br>Нажмите "Построить маршрут"</span>`;
-          };
-          
-          map.on('click', mapClickListener);
-        }
-
-        // Функция для получения текущего местоположения
-        function setupCurrentLocation() {
-          selectPointMode = false;
-          
-          // Убираем обработчик клика по карте
-          if (mapClickListener) {
-            map.off('click', mapClickListener);
-            mapClickListener = null;
-          }
-          
-          // Удаляем маркер выбранной точки
-          if (selectedPointMarker) {
-            map.removeLayer(selectedPointMarker);
-            selectedPointMarker = null;
-          }
-          
-          if (!userLocation) {
-            document.getElementById('routeInstructions').innerHTML = 
-              '<span style="color: #4CAF50;">Определяем ваше местоположение... Нажмите "Построить маршрут".</span>';
-            
-            if (navigator.geolocation) {
-              navigator.geolocation.getCurrentPosition(
-                (position) => {
-                  userLocation = [position.coords.latitude, position.coords.longitude];
-                  document.getElementById('routeInstructions').innerHTML = 
-                    `<span style="color: #4CAF50;">Ваше местоположение определено.<br>Нажмите "Построить маршрут"</span>`;
-                },
-                () => {
-                  document.getElementById('routeInstructions').innerHTML = 
-                    '<span style="color: #ff6b6b;">Не удалось получить ваше местоположение. Проверьте разрешения.</span>';
-                }
-              );
-            } else {
-              document.getElementById('routeInstructions').innerHTML = 
-                '<span style="color: #ff6b6b;">Ваш браузер не поддерживает геолокацию.</span>';
-            }
-          } else {
-            document.getElementById('routeInstructions').innerHTML = 
-              '<span style="color: #4CAF50;">Используем сохраненное местоположение.<br>Нажмите "Построить маршрут"</span>';
-          }
-        }
-
-        // Обработчики кнопок
-        document.getElementById('buildRouteBtn').addEventListener('click', buildRoute);
-        
-        document.getElementById('clearRouteBtn').addEventListener('click', () => {
-          // Очищаем маршрут
-          if (routePolyline) {
-            map.removeLayer(routePolyline);
-            routePolyline = null;
-          }
-          
-          // Удаляем маркер начала маршрута (но не выбранной точки)
-          map.eachLayer((layer) => {
-            if (layer._icon && layer._icon.classList && 
-                layer._icon.classList.contains('start-marker')) {
-              map.removeLayer(layer);
-            }
-          });
-          
-          document.getElementById('routeInstructions').innerHTML = '';
-          
-          // Возвращаем карту к исходному виду
-          map.setView([p.geo.lat, p.geo.lng], 15);
-        });
-
-        // Обработчики переключения опций маршрута
-        document.querySelectorAll('.route-option').forEach(option => {
-          option.addEventListener('click', function() {
-            document.querySelectorAll('.route-option').forEach(opt => 
-              opt.classList.remove('active'));
-            this.classList.add('active');
-            
-            if (this.dataset.routeType === 'select') {
-              setupPointSelection();
-            } else {
-              setupCurrentLocation();
-            }
-          });
-        });
-
-        // Инициализируем начальный режим (текущее местоположение)
-        setupCurrentLocation();
-
-        // Сохраняем ссылку на карту для использования в других функциях
-        window.currentMap = map;
-      }, 100);
-    }
-
-    // Функция для инициализации слайдера галереи
-    function initGallerySlider() {
-      const sliderWrapper = document.getElementById('sliderWrapper');
-      if (!sliderWrapper) return;
-
-      const slides = document.querySelectorAll('.slide');
-      const totalSlides = slides.length;
-      let currentSlide = 0;
-
-      function goToSlide(index) {
-        if (index < 0) index = totalSlides - 1;
-        if (index >= totalSlides) index = 0;
-        
-        currentSlide = index;
-        sliderWrapper.style.transform = `translateX(-${currentSlide * 100}%)`;
-        
-        // Обновляем активные точки
-        document.querySelectorAll('.dot').forEach((dot, i) => {
-          dot.classList.toggle('active', i === currentSlide);
-        });
-      }
-
-      // Кнопки навигации
-      document.querySelector('.slider-btn.prev')?.addEventListener('click', () => {
-        goToSlide(currentSlide - 1);
-      });
-
-      document.querySelector('.slider-btn.next')?.addEventListener('click', () => {
-        goToSlide(currentSlide + 1);
-      });
-
-      // Точки навигации
-      document.querySelectorAll('.dot').forEach(dot => {
-        dot.addEventListener('click', () => {
-          const index = parseInt(dot.dataset.index);
-          goToSlide(index);
-        });
-      });
-
-      // Автопрокрутка (опционально)
-      let autoSlideInterval = null;
-      
-      function startAutoSlide() {
-        if (totalSlides > 1) {
-          autoSlideInterval = setInterval(() => {
-            goToSlide(currentSlide + 1);
-          }, 5000);
-        }
-      }
-      
-      function stopAutoSlide() {
-        if (autoSlideInterval) {
-          clearInterval(autoSlideInterval);
-          autoSlideInterval = null;
-        }
-      }
-      
-      startAutoSlide();
-      
-      // Останавливаем автопрокрутку при наведении
-      const galleryContainer = document.querySelector('.gallery-container');
-      if (galleryContainer) {
-        galleryContainer.addEventListener('mouseenter', stopAutoSlide);
-        galleryContainer.addEventListener('mouseleave', startAutoSlide);
-      }
-    }
-
-    function renderPlace(categories, p){
-      const cat = categoryTitle(categories, p.category);
-      const rating = (p.rating != null) ? `⭐ ${p.rating.toFixed(1)}` : "⭐ —";
-      const price = (p.price_level != null) ? "₸".repeat(Math.max(1, Math.min(4, p.price_level))) : "";
-      const hoursLine = formatHours(p.hours);
-
-      const actions = [];
-      if(p.contacts.phone) actions.push(`<a class="action" href="tel:${esc(p.contacts.phone)}">📞 Позвонить</a>`);
-      if(p.contacts.whatsapp) actions.push(`<a class="action" target="_blank" rel="noopener" href="https://wa.me/${esc(p.contacts.whatsapp.replace(/\D/g,''))}">💬 WhatsApp</a>`);
-      if(p.contacts.website) actions.push(`<a class="action" target="_blank" rel="noopener" href="${esc(p.contacts.website)}">🌐 Сайт</a>`);
-
-      const gallery = buildGallerySlider(p);
-
-      const html = `
-        <div class="grid">
-          <div class="card">
-            ${gallery}
-            <div class="content">
-              <h1 class="title">${esc(p.name)}</h1>
-              <div class="meta">${esc(p.address || "Адрес не указан")}</div>
-
-              <div class="pillrow">
-                <span class="pill green">${esc(cat)}</span>
-                <span class="pill">${rating} ${price ? " • " + price : ""}</span>
-                <span class="pill">${esc(p.city)}</span>
-                ${p.verified ? `<span class="pill green">✅ Verified</span>` : ``}
-              </div>
-
-              <div class="actions">
-                ${actions.join("") || `<span class="empty">Контакты не указаны.</span>`}
-              </div>
-            </div>
-          </div>
-
-          <div class="card side">
-            <div class="content">
-              <h3>Информация</h3>
-              <div class="kv">
-                <div><b>Категория:</b> ${esc(cat)}</div>
-                <div><b>Город:</b> ${esc(p.city)}</div>
-                <div><b>График:</b> ${esc(hoursLine)}</div>
-                <div><b>Обновлено:</b> ${esc(p.updated_at || "—")}</div>
-              </div>
-
-              <div style="margin-top:12px">
-                <h3 style="margin:0 0 8px">Теги</h3>
-                <div class="tags">
-                  ${(p.tags && p.tags.length)
-                    ? p.tags.slice(0, 12).map(t => `<span class="tag">${esc(t)}</span>`).join("")
-                    : `<span class="tag">—</span>`
-                  }
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      `;
-
-      $("page").innerHTML = html;
-
-      // Инициализируем слайдер галереи
-      initGallerySlider();
-      
-      // Инициализируем карту
-      initMap(p);
-
-      // Report
-      const btnReport = document.getElementById('btnReport');
-      if(btnReport){
-        btnReport.addEventListener("click", ()=>{
-          alert("Спасибо! В демо-версии это форма. Позже сделаем отправку заявки на исправление данных.");
-        });
-      }
-
-      // Copy link
-      $("btnCopyLink").addEventListener("click", async ()=>{
-        try{
-          await navigator.clipboard.writeText(window.location.href);
-          $("btnCopyLink").textContent = "✅ Ссылка скопирована";
-          setTimeout(()=> $("btnCopyLink").textContent = "🔗 Скопировать ссылку", 1400);
-        }catch{
-          alert("Не удалось скопировать. Скопируйте вручную из адресной строки.");
-        }
-      });
-    }
-
-    // Modal functions (для увеличения фото при клике)
-    function openModal(src, caption){
-      $("modalImg").src = src;
-      $("modalCaption").textContent = caption || "Фото";
-      $("modal").classList.add("open");
-    }
-    function closeModal(){
-      $("modal").classList.remove("open");
-      $("modalImg").src = "";
-    }
-
-    $("modalClose").addEventListener("click", closeModal);
-    $("modal").addEventListener("click", (e)=>{ if(e.target.id === "modal") closeModal(); });
-    window.addEventListener("keydown", (e)=>{ if(e.key === "Escape") closeModal(); });
-
     async function init(){
-      const id = getParam("id");
-      if(!id){
-        $("page").innerHTML = `<div class="empty">Нет параметра <b>id</b>. Откройте так: <b>place.html?id=1</b></div>`;
-        return;
-      }
-
       try{
-        const [cats, placesRaw] = await Promise.all([
+        const [cats, places] = await Promise.all([
           loadJSON(CATEGORIES_URL),
           loadJSON(PLACES_URL)
         ]);
 
-        const categories = Array.isArray(cats) ? cats : [];
-        const places = (Array.isArray(placesRaw) ? placesRaw : []).map(normalizePlace);
+        state.categories = Array.isArray(cats) ? cats : [];
+        state.places = (Array.isArray(places) ? places : []).map(normalizePlace);
 
-        const p = places.find(x => String(x.id) === String(id));
-        if(!p){
-          $("page").innerHTML = `<div class="empty">Место с id=<b>${esc(id)}</b> не найдено.</div>`;
-          return;
-        }
+        const sel = $("#catSelect");
+        sel.innerHTML = `<option value="">Все категории</option>` + state.categories
+          .map(c => `<option value="${esc(c.id)}">${esc(c.title)}</option>`)
+          .join("");
 
-        document.title = `KoftaGard — ${p.name}`;
-        renderPlace(categories, p);
-      }catch(err){
+        $("#status").textContent = `Загружено мест: ${state.places.length}`;
+        renderAll();
+      } catch(err){
         console.error(err);
-        $("page").innerHTML = `<div class="empty">Ошибка загрузки данных. Проверьте пути к JSON и валидность файлов.</div>`;
+        $("#status").textContent = "Ошибка загрузки JSON. Проверьте пути и валидность JSON.";
       }
     }
+
+    $("#q").addEventListener("input", (e)=>{ state.query = e.target.value; renderResults(); });
+    $("#catSelect").addEventListener("change", (e)=>{ state.selectedCategory = e.target.value; renderAll(); });
+    $("#sort").addEventListener("change", (e)=>{ state.sort = e.target.value; renderResults(); renderNear(); });
+
+    $("#btnLocate").addEventListener("click", ()=>{
+      if(!navigator.geolocation){
+        $("#geoStatus").textContent = "Геолокация: не поддерживается";
+        return;
+      }
+      $("#geoStatus").textContent = "Геолокация: запрашиваем доступ…";
+      navigator.geolocation.getCurrentPosition(
+        (pos)=>{
+          state.userPos = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+          $("#geoStatus").textContent = `Геолокация: ${state.userPos.lat.toFixed(5)}, ${state.userPos.lng.toFixed(5)}`;
+          renderNear();
+          if(state.sort === "near") renderResults();
+        },
+        ()=>{ $("#geoStatus").textContent = "Геолокация: доступ не предоставлен"; },
+        { enableHighAccuracy: true, timeout: 8000, maximumAge: 60000 }
+      );
+    });
 
     init();
   </script>
