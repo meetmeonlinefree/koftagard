@@ -688,7 +688,7 @@
     "geo": { "lat": 40.2755256, "lng": 69.6089217 },
     "cover": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwEiQH_QtddhuT70hFP-U_4zXKaLK4sd2MNg&s",
     "images": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwEiQH_QtddhuT70hFP-U_4zXKaLK4sd2MNg&s"],
-    "contacts": { "phone": "+992927177877.", "whatsapp": "992927177877", "website": "" },
+    "contacts": { "phone": "+992927177877", "whatsapp": "992927177877", "website": "" },
     "hours": {
       "mon": "07:30-17:00",
       "tue": "07:30-17:00",
